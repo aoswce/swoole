@@ -17,7 +17,7 @@
         "require": {
             "ext-swoole": ">=1.8.0,<2.0.0"
         },
-        "time": "2016-11-14 11:44:09",
+        "time": "2016-11-14T11:44:09+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
