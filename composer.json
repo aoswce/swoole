@@ -1,0 +1,22 @@
+{
+    "name": "keaixiaou/zapi",
+    "description": "a asyn php framewrok",
+    "authors": [
+        {
+            "name": "keaixiaou",
+            "email": "286252682@qq.com",
+            "homepage": "https://github.com/keaixiaou/"
+        }
+    ],
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/keaixiaou/zphp"
+        }
+    ],
+    "require": {
+        "keaixiaou/zphp":"dev-master"
+    }
+
+}

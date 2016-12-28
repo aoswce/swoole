@@ -8,6 +8,15 @@
 
 
 $config = array(
+    'runparams'=>array(
+        'worker_num' => 1,   //一般设置为服务器CPU数的1-4倍
+        'daemonize' => 0,  //以守护进程执行
+        'max_request' => 10000,
+        'dispatch_mode' => 2,
+        'task_worker_num' => 8,  //task进程的数量
+        "task_ipc_mode " => 3 ,  //使用消息队列通信，并设置为争抢模式
+        //"log_file" => "log/taskqueueu.log" ,//日志
+    ),
     'server'=>array(
         'master'=>array(
             'host'=>'0.0.0.0',
@@ -19,7 +28,12 @@ $config = array(
         )
 
     ),
-    'client'=>array(),
+    'client'=>array(
+        'host'=> '127.0.0.1',
+        'port'=> 9501,
+        'timeout'=>0.5
+    ),
+    'proxy_enable'=>false,
     'proxy'=>array(
         'master'=>array(
             'host'=>'192.168.238.137',
@@ -32,7 +46,7 @@ $config = array(
     ),
     'redis'=>array(
         'master'=>array(
-            'host'=>'192.168.238.137',
+            'host'=>'127.0.0.1',
             'port'=>6379,
             'user'=>'',
             'pass'=>''
@@ -54,5 +68,3 @@ $config = array(
     ),
 
 );
-
-global $config;

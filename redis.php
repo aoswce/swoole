@@ -1,8 +1,20 @@
 <?php
+use SWoole\Redis;
 
-$redis = new Redis();
+$redis = new Redis;
 $redis -> connect('127.0.0.1',6379);
+echo $redis->get('test_keys')."\n";
 
-while(true){
-	$redis -> set('ismsg',json_encode(array('a'=>rand(1,10000),'name'=>rand(1000,9999))));
-      }
+/*
+$redis = new Swoole\Redis;
+$redis->connect('127.0.0.1', 6379, function ($redis, $result) {
+		//echo $redis->get('abcd1');
+    $redis->set('test_keys', md5('value'), function ($redis, $result) {
+				echo $redis->get('test_key	');
+        $redis->get('test_keys', function ($redis, $result) {
+						echo '['.$result.']';
+            var_dump($result);
+        });
+    });
+});
+*/

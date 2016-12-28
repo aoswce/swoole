@@ -25,6 +25,14 @@ class TcpClient
             self::register();
             sleep(2);
             self::login();
+            while(true){
+              sleep(2);
+              $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+              $re = $this->client->send(json_encode($data));
+              if(!$re){
+                continue;
+              }
+            }
         });
 
         $this->client->on('receive',function($cli,$data){
@@ -52,12 +60,12 @@ class TcpClient
     }
 
     function register(){
-      $data = array('fd'=>'B110_','cmd'=>'register');
+      $data = array('fd'=>'B999999_','cmd'=>'register');
       $re = $this->client->send(json_encode($data));
       var_dump($re);
       while(!$re){
         sleep(2);
-        $data = array('fd'=>'B110_12aew4qqwa23q','cmd'=>'register','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+        $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'register','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
         $re = $this->client->send(json_encode($data));
         if(!$re){
           break;
@@ -66,11 +74,11 @@ class TcpClient
     }
 
     function login(){
-      $data = array('fd'=>'B110_','cmd'=>'login');
+      $data = array('fd'=>'B999999_','cmd'=>'login');
       $re = $this->client->send(json_encode($data));
       while(!$re){
         sleep(2);
-        $data = array('fd'=>'B110_12aew4qqwa23q','cmd'=>'login','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+        $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'login','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
         $re = $this->client->send(json_encode($data));
         if(!$re){
           break;
