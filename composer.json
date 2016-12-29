@@ -21,6 +21,6 @@
         }
     },
     "require": {
-        "aoswce/swoole-zphp": "dev-master"
+        "aoswce/zphp": "dev-master"
     }
 }
