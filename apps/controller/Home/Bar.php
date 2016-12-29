@@ -10,13 +10,14 @@ namespace controller\Home;
 
 
 use ZPHP\Core\Config;
+use ZPHP\Controller\Controller;
 
 /**
  * Class Bar
  * @package controller\Home
  * 处理来自B端的所有请求
  */
-class Bar extends Apicontroller{
+class Bar extends Controller{
 
 
     /**

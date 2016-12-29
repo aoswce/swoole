@@ -11,7 +11,7 @@ return array(
     'response_filter' => true,
     'socket' => array(
         'host' => '0.0.0.0',                          //socket 监听ip
-        'port' => 9001,                             //socket 监听端口
+        'port' => 9988,                             //socket 监听端口
         'adapter' => 'Swoole',                          //socket 驱动模块
         'server_type' => Swoole::TYPE_HTTP,              //socket 业务模型 tcp/udp/http/websocket
         'protocol' => 'Http',                         //socket通信数据协议

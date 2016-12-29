@@ -8,11 +8,11 @@
 
 namespace controller\Home;
 
-use ZPHP\Controller\Apicontroller;
+use ZPHP\Controller\Controller;
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
 
-class Index extends Apicontroller{
+class Index extends Controller{
     public function index($id=0){
         return 'hello zpi!->{$id}'.$id;
     }
