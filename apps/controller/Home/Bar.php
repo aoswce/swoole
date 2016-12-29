@@ -10,14 +10,14 @@ namespace controller\Home;
 
 
 use ZPHP\Core\Config;
-use ZPHP\Controller\Controller;
+use ZPHP\Controller\Apicontroller;
 
 /**
  * Class Bar
  * @package controller\Home
  * 处理来自B端的所有请求
  */
-class Bar extends Controller{
+class Bar extends Apicontroller{
     //Set the class to be Api
     public $isApi = true;
 

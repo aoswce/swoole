@@ -12,7 +12,8 @@
     "repositories": {
         "zphp": {
             "type": "vcs",
-            "url": "https://github.com/keaixiaou/zphp"
+            "url": "https://github.com/aoswce/swoole-zphp"
+
         },
         "packagist": {
             "type": "composer",
