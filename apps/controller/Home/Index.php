@@ -13,6 +13,10 @@ use ZPHP\Core\Db;
 use ZPHP\Core\Log;
 
 class Index extends Controller{
+
+    //Set the class to be Api
+    public $isApi = true;
+
     public function index($id=0){
         return 'hello zpi!->{$id}'.$id;
     }

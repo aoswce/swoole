@@ -18,7 +18,8 @@ use ZPHP\Controller\Controller;
  * 处理来自B端的所有请求
  */
 class Bar extends Controller{
-
+    //Set the class to be Api
+    public $isApi = true;
 
     /**
      * 存酒：将已经存入数据库的酒品清单数据发送到S端

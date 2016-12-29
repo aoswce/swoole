@@ -19,6 +19,8 @@ use ZPHP\Redis\Redis;
 use ZPHP\Route\Route;
 
 class Test extends Controller{
+    //Set the class to be Api
+    public $isApi = true;
 
     public function index($abcd='abcd'){
         $data['list'] = yield App::service('test')->test($abcd);
