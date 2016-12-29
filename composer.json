@@ -9,16 +9,17 @@
         }
     ],
     "license": "MIT",
-    "repositories": [
-        {
+    "repositories": {
+        "zphp": {
             "type": "vcs",
             "url": "https://github.com/keaixiaou/zphp"
+        },
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
         }
-    ],
+    },
     "require": {
-        "keaixiaou/zphp":"dev-master"
+        "keaixiaou/zphp": "dev-master"
     }
-
-
-
 }
