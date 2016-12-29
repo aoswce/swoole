@@ -1,5 +1,6 @@
 <?php
-  require_once 'config.php';
+  define("ROOTPATH",dirname(dirname(__FILE__)));
+  require_once ROOTPATH . '/server/config/config.php';
   require_once 'function.php';
   require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
 

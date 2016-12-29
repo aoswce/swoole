@@ -1,9 +1,9 @@
 <?php
 
 define('APP_PATH', dirname(__FILE__) . '/');
-require_once APP_PATH.'HTTPServer.php';
-require_once APP_PATH.'requestHandler.php';
-require_once APP_PATH.'jsonp.php';
+require_once APP_PATH . 'HttpServer.php';
+require_once APP_PATH . 'requestHandler.php';
+require_once APP_PATH . 'jsonp.php';
 
 
 $server = new HTTPServer("0.0.0.0", 3155);

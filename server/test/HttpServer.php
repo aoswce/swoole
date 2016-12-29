@@ -136,7 +136,7 @@ function no_chunk(swoole_http_request $request, swoole_http_response $response)
     //$response->end("<h1>Hello Swoole. #".str_repeat('A', rand(100, 999))."</h1>");
     //global $http;
     //$http->task("hello world");
-    $file = realpath(__DIR__ . '/../' . $request->server['request_uri']);
+    $file = realpath(__DIR__ . '/F:/' . $request->server['request_uri']);
     if (is_file($file))
     {
         echo "http get file=$file\n";

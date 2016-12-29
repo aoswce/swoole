@@ -1,6 +1,6 @@
 <?php
 define("ROOTPATH",dirname(dirname(__FILE__)));
-require_once ROOTPATH.'/config.php';
+require_once ROOTPATH . '/config.php';
 /**
  * Created by PhpStorm.
  * User: Administrator
