@@ -23,6 +23,9 @@ return array(
         'debug_mode' => 1,
         'log_file' => ROOTPATH.'/log/swoole.log',//打开调试模式
     ),
+    's_api' =>   'api.app-server-online.yele',  //调用app端接口地址
+
+
 
     'project'=>array(
         'type' => 'api',
