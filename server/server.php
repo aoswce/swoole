@@ -1,14 +1,15 @@
 <?php
-  define("ROOTPATH",dirname(dirname(__FILE__)));
-  require_once ROOTPATH . '/server/config/config.php';
-  require_once ROOTPATH . '/server/function/function.php';
-  #require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
+define("ROOTPATH",dirname(dirname(__FILE__)));
+define('proxy_enable',$config['proxy_enable']);
+require_once ROOTPATH . '/server/config/config.php';
+require_once ROOTPATH . '/server/function/function.php';
+#require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
 
-  define('proxy_enable',$config['proxy_enable']);
+
 
 class Server{
   private $serv;
-  private $redis;
+
 
   public function __construct() {
       global $config;
@@ -18,8 +19,6 @@ class Server{
                             $config['server']['master']['host'],
                             $config['server']['master']['port']
                         );
-
-
 
       /*
       //创建 redis
@@ -41,8 +40,6 @@ class Server{
                 });
             });
         });
-        echo $redis->get('abcd1');
-
 
         */
 
@@ -51,7 +48,7 @@ class Server{
       if(proxy_enable){
         try{
 
-            $proxy = new swoole_client(SWOOLE_TCP | SWOOLE_KEEP);
+            $proxy = new Swoole\Client(SWOOLE_TCP | SWOOLE_KEEP);
             $proxy->connect(
                           $config['proxy']['master']['host'],
                           $config['proxy']['master']['port']
@@ -60,6 +57,7 @@ class Server{
             print_r($e);
         }
       }
+
       //监听当前服务启动
       $this->serv->on('start', array($this, 'onStart'));
 
@@ -92,9 +90,6 @@ class Server{
     //$this->serv->task('111');
   }
 
-  //global $proxy;
-
-  //$proxy->send($data);
   /**
    * data => array('fd'=>'B110_securekey','cmd'=>'register',data=>array())
    * cmd-pre : regiser/login/
@@ -214,64 +209,10 @@ class Server{
       }else{
         echo "Error Data Here!";
       }
-      //var_dump($serv);
-      //get message commond
-      //$cmd = $data['data']->cmd;
-      //$serv->task($data);
-      /*
-      switch ($cmd) {
-          case 'login':
-              echo "Login>\n";
-              //when login:save the client
-              $save = array(
-                  'fd' => $data['fd'],
-                  'socket_ip' => '192.168.238.132'
-              );
-              $this->redis->set($data['data']->user,serialize($save));
-              break;
-          case 'chat':
-              echo "Chat>\n";
-              $recv = unserialize($this->redis->get($data['recv']));
-              var_dump($recv);
-              if($recv['socket_ip']!='192.168.238.132'){
-                  $data['cmd']='forward';
-                  $data['recv_ip']=$recv['socket_ip'];
-                  $serv->task(json_encode($data));
-              }else{
-                  $serv->send($recv['fd'],"{$data['send']} send you Messages:{$data['content']}");
-              }
-              break;
-          case 'forward':
-              echo "Forward>\n";
-              $recv = unserialize($this->redis->get($data['recv']));
-              $serv->send($recv['fd'],"{$data['send']} send you Messages:{$data['content']}");
-              break;
-      }*/
   }
 
   function onStart($serv){
       echo "Server:Start...\n";
-      //$this->serv->task('www');
-      /*//服务启动，开始轮询Redis : mode[which model assoate with business model/module] msg[the clear msessage for operation]
-      //1.Come from S point : s:model:msg
-      //2.Come from B point : b:model:msg
-      $redis = self::getRedis();
-      while(true){
-          sleep(1);
-          $this->serv->task($redis->get("s:wine:winesave"));
-          $this->serv->task($redis->get("s:wine:winefetch"));
-          /*echo "Search Msg Start:>\n";
-              $s_msg_in =  $redis->get("s:wine:winesave");  //wine save
-              $s_msg_out = $redis->get("s:wine:winefetch"); //wine fetch
-              if(!empty($s_msg_in)){
-                  var_dump($s_msg_in);
-                  echo "Please save these wine!\n";
-              }elseif(!empty($s_msg_out)){
-                  var_dump($s_msg_out);
-                  echo "Please fetch my wine!\n";
-              }
-
-      }*/
   }
 
   function onConnect($serv,$fd){
@@ -292,9 +233,18 @@ class Server{
     return true;
   }
 
+    /**
+     * 创建 redis
+     * @return Redis
+     */
   function getRedis(){
-    $redis = new Redis;
-    $redis -> connect('127.0.0.1',6379);
+      global $config;
+      $redis = new Redis;
+      $re = $redis->connect(
+            $config['redis']['master']['host'],
+            $config['redis']['master']['port']
+      );
+
     return $redis;
   }
 }
