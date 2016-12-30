@@ -30,9 +30,10 @@ class Trans extends Apicontroller{
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
+
         if(!empty($rawData)){
-            $url = $Uri['server'].$urls['winesave'];
-            $re = httpPost($url,$rawData);
+            //此处数据保存
+
             if($re){
                 $re['status']=2;
                 $re['msg']='Post Error:post data to server error!';
@@ -61,6 +62,12 @@ class Trans extends Apicontroller{
                 $re['msg']='Send data successed!';
             }
         }
+        return $re;
+    }
+
+    private function saveData($data){
+        $key = "B1111";
+        $re = yield Db::redis()->cache($key,$data);
         return $re;
     }
 }
