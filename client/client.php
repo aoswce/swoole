@@ -31,6 +31,7 @@ class TcpClient
             //TODO
             var_dump($data);
             echo "you got your data:".$data;
+
         });
 
         $this->client->on('close',function($cli){

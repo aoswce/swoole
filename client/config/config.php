@@ -57,10 +57,11 @@ $config = array(
     ),
     'mysql'=>array(
         'master'=>array(
-            'host'=>'',
+            'host'=>'127.0.0.1',
             'port'=>3306,
-            'user'=>'yele',
-            'pass'=>'yele123',
+            'user'=>'yele_admin_test',
+            'pass'=>'yele_admin_test',
+            'db'  =>'yele_admin_test'
         ),
         'slave'=>array(
 

@@ -100,7 +100,10 @@ class Server{
   function onTask($serv,$task_id,$form_id,$data){
       echo "Start Task:[task ID:{$task_id}]>[formID:{$form_id}]!\n";
       var_dump($data);
-      $fdPre = substr($data['fd'],0,5);
+      $fd_arr = explode('_',$data['fd']);
+      $fdPre = $fd_arr[0]."_";
+      $fdEnd = $secureKey = $fd_arr[1];
+
       $redis = self::getRedis();
 
       switch ($data['cmd']) {
