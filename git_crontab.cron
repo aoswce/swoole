@@ -1,0 +1,1 @@
+*/2 * * * * sh /usr/local/yele-server/git_crontab.sh

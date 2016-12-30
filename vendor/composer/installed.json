@@ -1,0 +1,44 @@
+[
+    {
+        "name": "aoswce/zphp",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aoswce/swoole-zphp.git",
+            "reference": "d220c1ac0ff53bbb4982f7239d5d8eb15fa8fa82"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aoswce/swoole-zphp/zipball/d220c1ac0ff53bbb4982f7239d5d8eb15fa8fa82",
+            "reference": "d220c1ac0ff53bbb4982f7239d5d8eb15fa8fa82",
+            "shasum": ""
+        },
+        "require": {
+            "ext-swoole": ">=1.8.0,<2.0.0"
+        },
+        "time": "2016-12-29 10:01:03",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "ZPHP\\": "ZPHP"
+            }
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "aoswce",
+                "email": "aoswce@126.com",
+                "homepage": "https://github.com/aoswce"
+            }
+        ],
+        "description": "Asynchronous non-blocking framework based on ZPHP transformation",
+        "support": {
+            "source": "https://github.com/aoswce/swoole-zphp/tree/master",
+            "issues": "https://github.com/aoswce/swoole-zphp/issues"
+        }
+    }
+]
