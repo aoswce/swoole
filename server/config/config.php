@@ -61,6 +61,7 @@ $config = array(
             'port'=>3306,
             'user'=>'yele',
             'pass'=>'yele123',
+            'db'  =>'db'
         ),
         'slave'=>array(
 

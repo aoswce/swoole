@@ -24,7 +24,10 @@ class Trans extends Apicontroller{
 
     /**
      * S===>> p ===>> B
+     * url:http://server.yeleonline.com:9988/trans/winefetch
+     * 用户取酒，发送通知至P端，由P端将消息存储在队列，由server转发至B端client。
      * @return array|mixed
+     * DATA:
      * {
         'serller_id'=>'1111'      //商家编号
         'phone' => '123456789',     // 用户手机号
@@ -36,7 +39,6 @@ class Trans extends Apicontroller{
     }
      */
     public function winefetch(){
-        $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
 
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
@@ -46,7 +48,7 @@ class Trans extends Apicontroller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = saveData("wine:fethc",$data);
+            $re = self::saveData("wine:fetch",$data);
 
             if($re){
                 $this->result['errCode'] = 2 ;
@@ -93,7 +95,6 @@ class Trans extends Apicontroller{
      * @return array|mixed
      */
     public function winesave(){
-        $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
 
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
@@ -102,7 +103,7 @@ class Trans extends Apicontroller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = saveData("wine:save",$data);
+            $re = self::saveData("wine:save",$data);
 
             if($re){
                 $this->result['errCode'] = 2 ;

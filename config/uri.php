@@ -24,6 +24,7 @@ return array(
 
     'urlp'=>array(
         'winefetch' =>  '/bar/winefetch',           //用户取酒，将信息存储R，由服务Server发出至B。
+        'winefetch'
     )
 
 );
