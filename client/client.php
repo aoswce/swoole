@@ -31,6 +31,11 @@ class TcpClient
             //TODO
             var_dump($data);
             echo "you got your data:".$data;
+            //收到消息数据，完成两个步骤：
+            //1、完成数据存储至相应的Mysql数据表
+            //2、将通知发送至Redis队列
+            self::savetomysql($data);
+            self::savetoredis($data);
 
         });
 
@@ -77,6 +82,16 @@ class TcpClient
           break;
         }
       }
+    }
+
+
+    function savetomysql($data){
+
+    }
+
+    function savetoredis($k,$d){
+        $redis = getRedis();
+        $redis->set($k,$d);
     }
 }
 
