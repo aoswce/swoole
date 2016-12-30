@@ -16,35 +16,23 @@ use ZPHP\Core\Log;
 /**
  * Class Bar
  * @package controller\Home
- * 处理来自B端的所有请求
+ * 处理来自S端的所有请求
  */
-class Bar extends Apicontroller{
+class Trans extends Apicontroller{
 
     /**
-     * B===>> P ===>>S
-     * 存酒：将已经存入数据库的酒品清单数据发送到S端
-     * DATA:
-     * {
-        'name' => '张三',  // 顾客信息（可选）
-        'seller_id' => 'seller_id', //商家编号 （必填）
-        'phone' => '123456789',  // 顾客手机号（必填）
-        'code' => 'code', //商家存酒码（必填）
-        'time' => '123456', //有效期（必填）
-        'info' => {}, // 存酒清单（必填）
-      }*
+     * S===>> p ===>> B
+     * @return array|mixed
      */
-    public function winesave(){
-        Log::write("Start Winesave...");
+    public function winefetch(){
         $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
 
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
-        log::write("$rawData");
         if(!empty($rawData)){
             $url = $Uri['server'].$urls['winesave'];
             $re = httpPost($url,$rawData);
-            Log::write($re);
             if($re){
                 $re['status']=2;
                 $re['msg']='Post Error:post data to server error!';
@@ -55,8 +43,6 @@ class Bar extends Apicontroller{
         }
         return $re;
     }
-
-
 
     public function savenotice(){
         $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
