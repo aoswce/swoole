@@ -11,6 +11,7 @@ namespace controller\Home;
 
 use ZPHP\Core\Config;
 use ZPHP\Controller\Apicontroller;
+use ZPHP\Core\Log;
 
 /**
  * Class Bar
@@ -35,14 +36,17 @@ class Bar extends Apicontroller{
       }*
      */
     public function winesave(){
+        Log::write("Start Winesave...");
         $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
 
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
+        log::write("$rawData");
         if(!empty($rawData)){
             $url = $Uri['server'].$urls['winesave'];
             $re = httpPost($url,$rawData);
+            Log::write($re);
             if($re){
                 $re['status']=2;
                 $re['msg']='Post Error:post data to server error!';

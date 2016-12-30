@@ -3,14 +3,15 @@
  * Created by PhpStorm.
  * User: Avine
  */
-
+use ZPHP\Core\Db;
+use ZPHP\Core\Log;
 
 function table($tableName){
-    return \ZPHP\Core\Db::getInstance()->table($tableName);
+    return Db::getInstance()->table($tableName);
 }
 
 function collection($collectionName){
-    return \ZPHP\Core\Db::collection($collectionName);
+    return Db::collection($collectionName);
 }
 
 function httpGet($url,$data){
