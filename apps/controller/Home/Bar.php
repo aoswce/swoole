@@ -39,6 +39,8 @@ class Bar extends Apicontroller{
         $d = Config::get('redis');
         var_dump($d);
         $re = array('status'=>'0','msg'=>'success');
+        $re['r']=$d;
+        $re['d']=$datas;
         return json_encode($re);
         $re = httpPost();
     }
