@@ -22,6 +22,7 @@ class Bar extends Apicontroller{
     public $isApi = true;
 
     /**
+     * B===>> P ===>>S
      * 存酒：将已经存入数据库的酒品清单数据发送到S端
      * DATA:
      * {
@@ -34,14 +35,67 @@ class Bar extends Apicontroller{
       }*
      */
     public function winesave(){
-        $data = [];
-        $datas['raw'] = $this->request->rawContent();
-        $d = Config::get('redis');
-        var_dump($d);
-        $re = array('status'=>'0','msg'=>'success');
-        $re['r']=$d;
-        $re['d']=$datas;
-        return json_encode($re);
-        $re = httpPost();
+        $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
+
+        $Uri = Config::get('uri');
+        $urls = $Uri['urls'];
+        $rawData = $this->request->rawContent();
+        if(!empty($rawData)){
+            $url = $Uri['server'].$urls['winesave'];
+            $re = httpPost($url,$rawData);
+            if($re){
+                $re['status']=2;
+                $re['msg']='Post Error:post data to server error!';
+            }else{
+                $re['status']=0;
+                $re['msg']='Send data successed!';
+            }
+        }
+        return $re;
+    }
+
+
+    /**
+     * S===>> p ===>> B
+     * @return array|mixed
+     */
+    public function winefetch(){
+        $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
+
+        $Uri = Config::get('uri');
+        $urls = $Uri['urls'];
+        $rawData = $this->request->rawContent();
+        if(!empty($rawData)){
+            $url = $Uri['server'].$urls['winesave'];
+            $re = httpPost($url,$rawData);
+            if($re){
+                $re['status']=2;
+                $re['msg']='Post Error:post data to server error!';
+            }else{
+                $re['status']=0;
+                $re['msg']='Send data successed!';
+            }
+        }
+        return $re;
+    }
+
+    public function savenotice(){
+        $re = ['status'=>1,'msg'=>'default error:some thing wrong,try again!'];
+
+        $Uri = Config::get('uri');
+        $urls = $Uri['urls'];
+        $rawData = $this->request->rawContent();
+        if(!empty($rawData)){
+            $url = $Uri['server'].$urls['winesave'];
+            $re = httpPost($url,$rawData);
+            if($re){
+                $re['status']=2;
+                $re['msg']='Post Error:post data to server error!';
+            }else{
+                $re['status']=0;
+                $re['msg']='Send data successed!';
+            }
+        }
+        return $re;
     }
 }
