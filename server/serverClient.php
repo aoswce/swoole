@@ -1,12 +1,15 @@
 <?php
-define("ROOTPATH",dirname(dirname(__FILE__)));
-require_once ROOTPATH . '/server/config/config.php';
 /**
  * Created by PhpStorm.
- * User: Administrator
+ * User: Avine
  * Date: 2016/12/21
  * Time: 16:10
  */
+
+define("ROOTPATH",dirname(dirname(__FILE__)));
+require_once ROOTPATH . '/server/config/config.php';
+require_once ROOTPATH . '/server/function/function.php';
+
 
 
 class TcpClient
@@ -25,12 +28,19 @@ class TcpClient
             self::register();
             sleep(2);
             self::login();
+            //从Redis获取要发送的数据
+            $redis = getRedis();
+
             while(true){
-              sleep(2);
-              $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
-              $re = $this->client->send(json_encode($data));
-              if(!$re){
-                continue;
+              sleep(1);
+              $sends = $redis->keys('S:*:*:*');
+              //如果有数据将数据发送动作发送给服务端
+              if(count($sends)){
+                  $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+                  $re = $this->client->send(json_encode($data));
+                  if($re){continue;}else{//失败重发
+                      $this->client->send(json_encode($data));
+                  }
               }
             }
         });
