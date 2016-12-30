@@ -46,7 +46,7 @@ class Trans extends Apicontroller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = saveData($data);
+            $re = saveData("wine:fethc",$data);
 
             if($re){
                 $this->result['errCode'] = 2 ;
@@ -65,6 +65,7 @@ class Trans extends Apicontroller{
      * 用户或者营销自己存酒，P端接收存酒信息，传至B端Client，由client存储至Mysql并发消息至Redis通知队列
      * DATA:
      * {
+        "seller_id":"1111",
         "customer_name": "张三",
         "customer_cellphone": "12345678901",
         "marketing_cellphone": "marketing_cellphone",
@@ -101,7 +102,7 @@ class Trans extends Apicontroller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = saveData($data);
+            $re = saveData("wine:save",$data);
 
             if($re){
                 $this->result['errCode'] = 2 ;
@@ -117,10 +118,11 @@ class Trans extends Apicontroller{
     /**
      * 将数据存放至Redsis，由Server任务转发给B端
      * @param $data
+     * @param $k
      * @return mixed
      */
-    private function saveData($data){
-        $key = $data['seller_id'];
+    private function saveData($k,$data){
+        $key = "S:".$k;
         $re = yield Db::redis()->cache($key,json_encode($data));
         return $re;
     }

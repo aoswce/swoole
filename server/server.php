@@ -163,9 +163,9 @@ class Server{
             //$redis->delete($value);
             $re = $redis->keys('B'.$fd_toB.'_log_*_');
             $bkey = "";
-            foreach ($re as $key => $value) {
-              echo "[$key]=>[$value]";
-              $bkey = $value;
+            foreach ($re as $k => $v) {
+              echo "[$k]=>[$v]";
+              $bkey = $v;
             }
             $fd_toBkey = explode("_",$bkey);
             $fd_to = $fd_toBkey[2];
