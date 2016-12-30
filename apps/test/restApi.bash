@@ -10,10 +10,10 @@ winefetch)
 	curl -i http://api.app-server-online.yele/seller/savewine -d '{"phone":"123456789","code":"code","status":1,"msg":"错误信息"}'
 	;;
 update)
-	curl -i http://localhost:9501/storage/1 -X PATCH -d '{"template":{"data":[{"name":"i_num","value":"99"}]}}'
+	curl -i http://api.app-server-online.yele/seller/1 -X PATCH -d '{"template":{"data":[{"name":"i_num","value":"99"}]}}'
 	;;
 delete)
-	curl -i http://localhost:9501/storage/1 -X DELETE
+	curl -i http://api.app-server-online.yele/seller/1 -X DELETE
 	;;
 *)
 	echo 'anything else is quit!'
