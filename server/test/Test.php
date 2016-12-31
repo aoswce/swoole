@@ -15,6 +15,13 @@ class Test{
         var_dump($re);
     }
 
+    public function init(){
+        echo "Test init ...";
+        $re = yield Db::table('user')->where(['id'=>2])->find();
+        var_dump($re);
+        echo "Test Finished ...";
+    }
+
 }
 
 $test = new Test();
