@@ -96,10 +96,11 @@ class Trans extends Apicontroller{
      * @return array|mixed
      */
     public function winesave(){
-
+        Log::write("Server save wine Start...");
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
+        log::write("Send Data:".json_encode($rawData));
         if(!empty($rawData)){
             //此处数据保存至Redis
 
