@@ -74,7 +74,7 @@ class Client
     }
 
     function register(){
-      $data = array('fd'=>'B110_','cmd'=>'register');
+      $data = array('fd'=>$this->clientID.'_','cmd'=>'register');
       $re = $this->client->send(json_encode($data));
       var_dump($re);
       while(!$re){
@@ -88,7 +88,7 @@ class Client
     }
 
     function login(){
-      $data = array('fd'=>'B110_','cmd'=>'login');
+      $data = array('fd'=>$this->clientID.'_','cmd'=>'login');
       $re = $this->client->send(json_encode($data));
       while(!$re){
         sleep(2);
