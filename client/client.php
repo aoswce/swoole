@@ -57,14 +57,14 @@ class Client
             echo "Connect failed\n";
         });
 
-        $this->client->run();
+        self::run();
     }
 
     public function run(){
         global $config;
         $this->client->connect(
-          $config['client']['host'],
-          $config['client']['port']
+          $config['server']['master']['host'],
+          $config['server']['master']['port']
       );
     }
 
