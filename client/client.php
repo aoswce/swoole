@@ -12,7 +12,7 @@ require_once ROOTPATH . '/client/config/config.php';
 use ZPHP\Core\Db;
 
 
-class TcpClient
+class Client
 {
     private $client;
     /**
@@ -56,14 +56,15 @@ class TcpClient
         $this->client->on("error", function($cli){
             echo "Connect failed\n";
         });
+
+        $this->client->run();
     }
 
     public function run(){
         global $config;
         $this->client->connect(
           $config['client']['host'],
-          $config['client']['port'],
-          $config['client']['timeout']
+          $config['client']['port']
       );
     }
 
@@ -109,5 +110,4 @@ class TcpClient
     }
 }
 
-$client = new TcpClient();
-$client->run();
+$client = new Client();
