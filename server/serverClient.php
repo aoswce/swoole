@@ -63,7 +63,7 @@ class TcpClient
 
     public function send(){
         //从Redis获取要发送的数据
-        $redis = getRedis();
+        $redis = self::getRedis();
         //循环检测队列，将通知触发至服务
         while(true){
             //sleep(1);
@@ -113,6 +113,17 @@ class TcpClient
           break;
         }
       }
+    }
+
+    private function getRedis(){
+        global $config;
+        $redis = new Redis;
+        $re = $redis->connect(
+            $config['redis']['master']['host'],
+            $config['redis']['master']['port']
+        );
+
+        return $redis;
     }
 }
 
