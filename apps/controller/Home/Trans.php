@@ -11,6 +11,7 @@ namespace controller\Home;
 
 use ZPHP\Core\Config;
 use ZPHP\Controller\Apicontroller;
+use ZPHP\Core\Db;
 use ZPHP\Core\Log;
 
 /**
