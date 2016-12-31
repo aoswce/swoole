@@ -33,7 +33,7 @@ class TcpClient
             $redis = getRedis();
             //循环检测队列，将通知触发至服务
             while(true){
-                //sleep(1);
+                sleep(1);
                 $sends = $redis->keys('S:*:*:*');
                 //如果有数据将数据发送动作发送给服务端
                 if(count($sends)){
