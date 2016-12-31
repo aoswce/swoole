@@ -111,6 +111,7 @@ class Server{
   function onTask($serv,$task_id,$form_id,$data){
       echo "Start Task:[task ID:{$task_id}]>[formID:{$form_id}]!\n";
       //var_dump($data);
+      /*
       $fd_arr = explode('_',$data['fd']);
       $fdPre = $fd_arr[0]."_";
       $fdEnd = $secureKey = $fd_arr[1];
@@ -200,7 +201,7 @@ class Server{
           break;
 
       }
-
+        */
 
   }
 
@@ -222,7 +223,7 @@ class Server{
       echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
 
       if(!empty($data['fd']) && self::validate($data['fd'])){
-        $this->serv->task($data);
+        $this->serv->ontask($data);
       }else{
         echo "Error Data Here!";
       }
