@@ -30,7 +30,7 @@ class TcpClient
             self::login();
 
             //从Redis获取要发送的数据
-            $redis = getRedis();
+            $redis = self::getRedis();
             //循环检测队列，将通知触发至服务
             while(true){
                 sleep(1);
