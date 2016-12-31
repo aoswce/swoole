@@ -130,7 +130,7 @@ class Server{
             }
           }else{
             $this->serv->send($data['fds'],"You have got Registered!");
-            echo  "You have got Registered!";
+            echo  "You have got Registered!\n";
           }
           break;
 
@@ -141,18 +141,18 @@ class Server{
             $re = $redis -> set($logKey,json_encode(array('fd'=>$data['fds'],'time'=>date('Y-m-d H:i:s',strtotime('now')),'ip'=>'')));
             if($re){
               $this->serv->send($data['fds'],"You have got Logined Success!");
-              echo  "You have got Logined Success!";
+              echo  "You have got Logined Success!\n";
             }else{
               $this->serv->send($data['fds'],"You have got Logined Failed!");
-              echo  "You have got Logined Failed!";
+              echo  "You have got Logined Failed!\n";
             }
           }else{
             $this->serv->send($data['fds'],"You have got Logined!");
-            echo  "You have got Logined!";
+            echo  "You have got Logined!\n";
           }
 
           break;
-        /*
+
         case 'savewine':
           # code...
           break;
@@ -174,37 +174,38 @@ class Server{
             $re = yield Db::table('user')->where(['id'=>1])->find();
           break;
 
-
-        case 'sendClient'://S Point msg getUser
-          echo  "===================\n";
-          var_dump($data);
-          echo  "===================\n";
-          $re = $redis->keys('S:*:*:*');
-          var_dump($re);
-          foreach ($re as $key => $value) {
-            echo "[$key]=>[$value]";
-            $fd_tostr = explode(":",$value);
-            $fd_toB = $fd_tostr[1];
-            $re = $redis->keys('B'.$fd_toB.'_log_*_');
-            $bkey = "";
-            foreach ($re as $k => $v) {
-              echo "[$k]=>[$v]";
-              $bkey = $v;
+          /*
+          case 'sendClient'://S Point msg getUser
+            echo  "===================\n";
+            var_dump($data);
+            echo  "===================\n";
+            $re = $redis->keys('S:*:*:*');
+            var_dump($re);
+            foreach ($re as $key => $value) {
+              echo "[$key]=>[$value]";
+              $fd_tostr = explode(":",$value);
+              $fd_toB = $fd_tostr[1];
+              $re = $redis->keys('B'.$fd_toB.'_log_*_');
+              $bkey = "";
+              foreach ($re as $k => $v) {
+                echo "[$k]=>[$v]";
+                $bkey = $v;
+              }
+              $fd_toBkey = explode("_",$bkey);
+              $fd_to = $fd_toBkey[2];
+              //发送数据到客户端，客户端收到后再确认，再将Redis数据清除
+              $this->serv->send($fd_to,$value);
             }
-            $fd_toBkey = explode("_",$bkey);
-            $fd_to = $fd_toBkey[2];
-            //发送数据到客户端，客户端收到后再确认，再将Redis数据清除
-            $this->serv->send($fd_to,$value);
-          }
-          break;
-        case 'logout':
-          $re = $redis->keys('B*_log_'.$data['fd']."_");
-          foreach ($re as $key => $value) {
-            echo "[$key]=>[$value]";
-            $redis->delete($value);
-          }
-          break;
-        */
+            break;
+          */
+          case 'logout':
+            $re = $redis->keys('B*_log_'.$data['fd']."_");
+            foreach ($re as $key => $value) {
+              echo "[$key]=>[$value]";
+              $redis->delete($value);
+            }
+            break;
+
         default:
           # code...
           break;
