@@ -89,7 +89,7 @@ class Test extends Apicontroller{
         $datas['raw'] = $this->request->rawContent();
         $datas['post'] = $this->request->post;
         var_dump($datas);
-        $re = yield Db::redis()->cache('S:9999:wine:save');
+        $re = yield Db::redis()->cache('S:9999:wine:save',json_encode($datas));
         //$datas['redis']=$data;
         return ['data'=>$datas];
     }
