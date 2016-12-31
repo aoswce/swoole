@@ -223,7 +223,7 @@ class Server{
       echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
 
       if(!empty($data['fd']) && self::validate($data['fd'])){
-        $this->serv->ontask($data);
+        $this->serv->task($data);
       }else{
         echo "Error Data Here!";
       }
