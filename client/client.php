@@ -7,6 +7,7 @@ require_once ROOTPATH . '/client/config/config.php';
  * Date: 2016/12/21
  * Time: 16:10
  */
+use ZPHP\Core\Db;
 
 
 class TcpClient
@@ -86,12 +87,11 @@ class TcpClient
 
 
     function savetomysql($data){
-
+        $re = yield Db::table('')->query($data);
     }
 
     function savetoredis($k,$d){
-        $redis = getRedis();
-        $redis->set($k,$d);
+        $re = yield Db::redis()->cache($k,$d);
     }
 }
 
