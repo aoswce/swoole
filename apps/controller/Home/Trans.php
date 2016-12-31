@@ -59,7 +59,7 @@ class Trans extends Apicontroller{
                 $this->result['msg'] ='Send data successed!';
             }
         }
-        return $re;
+        return $this->result;
     }
 
     /**
@@ -115,7 +115,7 @@ class Trans extends Apicontroller{
                 $this->result['msg'] ='Send data successed!';
             }
         }
-        return $re;
+        return $this->result;
     }
 
     /**
