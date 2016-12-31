@@ -57,7 +57,7 @@ class Client
             echo "Connect failed\n";
         });
 
-        $this->client->run();
+        self::run();
     }
 
     public function run(){
