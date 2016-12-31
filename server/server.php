@@ -110,7 +110,7 @@ class Server{
   **/
   function onTask($serv,$task_id,$form_id,$data){
       echo "Start Task:[task ID:{$task_id}]>[formID:{$form_id}]!\n";
-      var_dump($data);
+      //var_dump($data);
       $fd_arr = explode('_',$data['fd']);
       $fdPre = $fd_arr[0]."_";
       $fdEnd = $secureKey = $fd_arr[1];
@@ -175,7 +175,6 @@ class Server{
             echo "[$key]=>[$value]";
             $fd_tostr = explode(":",$value);
             $fd_toB = $fd_tostr[1];
-            //$redis->delete($value);
             $re = $redis->keys('B'.$fd_toB.'_log_*_');
             $bkey = "";
             foreach ($re as $k => $v) {
@@ -207,7 +206,7 @@ class Server{
 
   function onTaskFinish($serv,$task_id,$data){
       echo "Client:[task_id:{$task_id}]>Finished.\n";
-      var_dump($data);
+      //var_dump($data);
   }
 
   /**
@@ -220,9 +219,9 @@ class Server{
   function onReceive($serv,$fd,$form_id,$data){
       echo "Get Received:[formID:{$form_id}][fd:{$fd}]connected!\n";
       $data = (array)json_decode($data);
-      var_dump($data);
+      //var_dump($data);
       $data['fds']=$fd;
-      var_dump($data);
+      //var_dump($data);
       if(!empty($data['fd']) && self::validate($data['fd'])){
         $this->serv->task($data);
       }else{
