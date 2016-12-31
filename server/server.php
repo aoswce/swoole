@@ -217,7 +217,8 @@ class Server{
    * $form_id : from_id是来自于哪个reactor线程，目前尚未用到
    */
   function onReceive($serv,$fd,$form_id,$data){
-      echo "Get Received:[formID:{$form_id}][fd:{$fd}]connected!\n";
+      echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
+
       $data = (array)json_decode($data);
       //var_dump($data);
       $data['fds']=$fd;
@@ -251,7 +252,7 @@ class Server{
 
   function validate($data){
     //TODO:
-    echo "validate:".$data;
+    echo "validate:".$data."\n";
     return true;
   }
 
