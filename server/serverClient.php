@@ -29,12 +29,24 @@ class TcpClient
             sleep(2);
             self::login();
 
-            self::send();
+            //从Redis获取要发送的数据
+            $redis = getRedis();
+            //循环检测队列，将通知触发至服务
+            while(true){
+                //sleep(1);
+                $sends = $redis->keys('S:*:*:*');
+                //如果有数据将数据发送动作发送给服务端
+                if(count($sends)){
+                    $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+                    $re = $this->client->send(json_encode($data));
+                    if($re){continue;}else{//失败重发
+                        $this->client->send(json_encode($data));
+                    }
+                }
+            }
         });
 
         $this->client->on('receive',function($cli,$data){
-            //TODO
-            var_dump($data);
             echo "you got your data:".$data;
         });
 
