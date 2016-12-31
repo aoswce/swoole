@@ -153,23 +153,6 @@ class Server{
 
           break;
 
-        case 'savewine':
-          # code...
-          break;
-
-
-        case 'getwine':
-          # code...
-          break;
-
-
-        case 'dataok':
-            //收到客户端数据确认，清除Redis缓存
-            if($data['status']){
-                $re = $redis->delete($data['key']);
-                if(!$re){$redis->delete($data['key']);}
-            }
-          break;
         case 'dbquery':
             $re = yield Db::table('user')->where(['id'=>1])->find();
           break;
