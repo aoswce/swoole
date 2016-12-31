@@ -13,6 +13,7 @@ use ZPHP\Core\Config;
 use ZPHP\Controller\Apicontroller;
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
+use ZPHP\Queue\Adapter\Redis;
 
 /**
  * Class Bar
@@ -127,7 +128,8 @@ class Trans extends Apicontroller{
      */
     private function saveData($k,$data){
         $key = "S:".$k;
-        $re = yield Db::redis()->cache($key,json_encode($data));
+        $re = yield Db::redis()->lpush($key,json_encode($data));
+
         return $re;
     }
 }
