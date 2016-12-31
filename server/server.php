@@ -98,7 +98,6 @@ class Server{
 
   function onWorkerstart($serv, $wid) {
     echo "Work Id:",$wid,"\n";
-    //$this->serv->task('111');
   }
 
   /**
@@ -255,7 +254,7 @@ class Server{
   function getRedis(){
       global $config;
       $redis = new Redis;
-      $re = $redis->connect(
+      $redis->connect(
             $config['redis']['master']['host'],
             $config['redis']['master']['port']
       );
