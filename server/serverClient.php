@@ -29,7 +29,7 @@ class TcpClient
             sleep(2);
             self::login();
 
-            $this->client->task('Redis');
+            self::send();
         });
 
         $this->client->on('receive',function($cli,$data){
@@ -38,7 +38,7 @@ class TcpClient
             echo "you got your data:".$data;
         });
 
-        $this->client->on('task',arra($this,'onTask'));
+        //$this->client->on('task',array($this,'onTask'));
 
         $this->client->on('close',function($cli){
             echo "Client Closed ...\n";
@@ -49,7 +49,7 @@ class TcpClient
         });
     }
 
-    public function onTask($data){
+    public function send(){
         //从Redis获取要发送的数据
         $redis = getRedis();
         //循环检测队列，将通知触发至服务
