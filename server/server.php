@@ -111,7 +111,7 @@ class Server{
   function onTask($serv,$task_id,$form_id,$data){
       echo "Start Task:[task ID:{$task_id}]>[formID:{$form_id}]!\n";
       //var_dump($data);
-      /*
+
       $fd_arr = explode('_',$data['fd']);
       $fdPre = $fd_arr[0]."_";
       $fdEnd = $secureKey = $fd_arr[1];
@@ -133,6 +133,8 @@ class Server{
             echo  "You have got Registered!";
           }
           break;
+
+
         case 'login':
           $logKey = $fdPre."log_".$data['fds']."_";
           if(empty($redis->get($logKey))){
@@ -150,12 +152,17 @@ class Server{
           }
 
           break;
+        /*
         case 'savewine':
           # code...
           break;
+
+
         case 'getwine':
           # code...
           break;
+
+
         case 'dataok':
             //收到客户端数据确认，清除Redis缓存
             if($data['status']){
@@ -166,6 +173,8 @@ class Server{
         case 'dbquery':
             $re = yield Db::table('user')->where(['id'=>1])->find();
           break;
+
+
         case 'sendClient'://S Point msg getUser
           echo  "===================\n";
           var_dump($data);
@@ -195,13 +204,13 @@ class Server{
             $redis->delete($value);
           }
           break;
-
+        */
         default:
           # code...
           break;
 
       }
-        */
+
 
   }
 
