@@ -152,12 +152,12 @@ class Server{
           }
 
           break;
-
-        case 'dbquery':
-            $re = yield Db::table('user')->where(['id'=>1])->find();
-          break;
-
           /*
+                  case 'dbquery':
+                      $re = yield Db::table('user')->where(['id'=>1])->find();
+                    break;
+
+
           case 'sendClient'://S Point msg getUser
             echo  "===================\n";
             var_dump($data);
@@ -180,7 +180,7 @@ class Server{
               $this->serv->send($fd_to,$value);
             }
             break;
-          */
+*/
           case 'logout':
             $re = $redis->keys('B*_log_'.$data['fd']."_");
             foreach ($re as $key => $value) {
