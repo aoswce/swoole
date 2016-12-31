@@ -217,12 +217,10 @@ class Server{
    * $form_id : from_id是来自于哪个reactor线程，目前尚未用到
    */
   function onReceive($serv,$fd,$form_id,$data){
+      $data = (array)json_decode($data);
+      $data['fds']=$fd;
       echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
 
-      $data = (array)json_decode($data);
-      //var_dump($data);
-      $data['fds']=$fd;
-      //var_dump($data);
       if(!empty($data['fd']) && self::validate($data['fd'])){
         $this->serv->task($data);
       }else{
