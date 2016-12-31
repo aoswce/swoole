@@ -63,8 +63,8 @@ class Client
     public function run(){
         global $config;
         $this->client->connect(
-          $config['client']['host'],
-          $config['client']['port']
+          $config['server']['master']['host'],
+          $config['server']['master']['port']
       );
     }
 
