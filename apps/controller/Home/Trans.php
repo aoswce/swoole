@@ -30,14 +30,16 @@ class Trans extends Apicontroller{
      * @return array|mixed
      * DATA:
      * {
-        'serller_id'=>'1111'      //商家编号
-        'phone' => '123456789',     // 用户手机号
-        'code' => 'code',           // 存酒码
-        'sales'=>[{
-            'phone' => '123456789', // 营销员手机号
-            'name' => 'xxxx',       // 营销员名称
-        }]
-    }
+        "serller_id": "1111",
+        "phone": "123456789",
+        "code": "code",
+        "sales": [
+            {
+            "phone": "123456789",
+            "name": "xxxx"
+            }
+        ]
+      }
      */
     public function winefetch(){
 
@@ -50,7 +52,6 @@ class Trans extends Apicontroller{
 
             $data = json_decode($rawData);
             $re = self::saveData("wine:fetch",$data);
-
             if($re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
