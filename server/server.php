@@ -1,9 +1,13 @@
 <?php
 define("ROOTPATH",dirname(dirname(__FILE__)));
-define('proxy_enable',$config['proxy_enable']);
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
 #require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
+
+
+
+define('proxy_enable',$config['proxy_enable']);
+
 
 use ZPHP\Core\Db;
 
@@ -151,8 +155,12 @@ class Server{
         case 'getwine':
           # code...
           break;
-        case 'getgoods':
-          # code...
+        case 'dataok':
+            //收到客户端数据确认，清除Redis缓存
+            if($data['status']){
+                $re = $redis->delete($data['key']);
+                if(!$re){$redis->delete($data['key']);}
+            }
           break;
         case 'dbquery':
             $re = yield Db::table('user')->where(['id'=>1])->find();
@@ -176,6 +184,7 @@ class Server{
             }
             $fd_toBkey = explode("_",$bkey);
             $fd_to = $fd_toBkey[2];
+            //发送数据到客户端，客户端收到后再确认，再将Redis数据清除
             $this->serv->send($fd_to,$value);
           }
           break;

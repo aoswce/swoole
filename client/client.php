@@ -1,18 +1,25 @@
 <?php
-define("ROOTPATH",dirname(dirname(__FILE__)));
-require_once ROOTPATH . '/client/config/config.php';
 /**
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2016/12/21
  * Time: 16:10
  */
+define("ROOTPATH",dirname(dirname(__FILE__)));
+require_once ROOTPATH . '/client/config/config.php';
+
+
 use ZPHP\Core\Db;
 
 
 class TcpClient
 {
     private $client;
+    /**
+     * 用于标识商家端
+     * @var
+     */
+    private $clientID;
 
 
     public function __construct()
@@ -20,7 +27,7 @@ class TcpClient
         global $config;
         //var_dump($config);
         $this->client = new Swoole\Client(SWOOLE_SOCK_TCP,SWOOLE_SOCK_ASYNC);
-
+        $this->clientID = $config['client']['host'];
 
         $this->client->on('connect',function($cli){
             self::register();
@@ -37,6 +44,8 @@ class TcpClient
             //2、将通知发送至Redis队列
             self::savetomysql($data);
             self::savetoredis($data);
+            //3、消息确认
+            self::dataok();
 
         });
 
@@ -58,13 +67,18 @@ class TcpClient
       );
     }
 
+    function dataok(){
+        $data = array('fd'=>$this->clientID.'_12aew4qqwa23q','cmd'=>'dataok','key'=>'','status'=>1);
+        self::send($data);
+    }
+
     function register(){
       $data = array('fd'=>'B110_','cmd'=>'register');
       $re = $this->client->send(json_encode($data));
       var_dump($re);
       while(!$re){
         sleep(2);
-        $data = array('fd'=>'B110_12aew4qqwa23q','cmd'=>'register','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+        $data = array('fd'=>$this->clientID.'_12aew4qqwa23q','cmd'=>'register','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
         $re = $this->client->send(json_encode($data));
         if(!$re){
           break;
@@ -77,7 +91,7 @@ class TcpClient
       $re = $this->client->send(json_encode($data));
       while(!$re){
         sleep(2);
-        $data = array('fd'=>'B110_12aew4qqwa23q','cmd'=>'login','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+        $data = array('fd'=>$this->clientID.'_12aew4qqwa23q','cmd'=>'login','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
         $re = $this->client->send(json_encode($data));
         if(!$re){
           break;

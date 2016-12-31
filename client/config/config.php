@@ -19,7 +19,7 @@ $config = array(
     ),
     'server'=>array(
         'master'=>array(
-            'host'=>'0.0.0.0',
+            'host'=>'116.62.46.72',
             'port'=>9501,
             'timeout'=>0.5
         ),
@@ -29,7 +29,7 @@ $config = array(
 
     ),
     'client'=>array(
-        'host'=> '127.0.0.1',
+        'host'=> '1111',
         'port'=> 9501,
         'timeout'=>0.5
     ),
