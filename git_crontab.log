@@ -1,17 +1,150 @@
 
-Fri Dec 30 14:54:01 CST 2016
-
-Fri Dec 30 14:56:01 CST 2016
-
-Fri Dec 30 14:58:01 CST 2016
-
-Fri Dec 30 14:58:35 CST 2016
-Updating ac52162..add0154
-Fri Dec 30 14:59:05 CST 2016
-Updating ac52162..add0154
-Fri Dec 30 14:59:16 CST 2016
-Updating ac52162..add0154
-Fri Dec 30 15:00:01 CST 2016
-
-Fri Dec 30 15:00:06 CST 2016
-Updating ac52162..add0154 Fast-forward apps/test/restApi.bash | 8 ++++---- 1 file changed, 4 insertions(+), 4 deletions(-)
+Already up-to-date.
+Wed Jan 4 10:44:05 CST 2017
+Already up-to-date.
+Wed Jan 4 10:44:09 CST 2017
+Already up-to-date.
+Wed Jan 4 10:46:09 CST 2017
+Merge made by the 'recursive' strategy.
+ apps/controller/Home/Trans.php | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+Wed Jan 4 10:48:03 CST 2017
+Already up-to-date.
+Wed Jan 4 10:50:07 CST 2017
+Already up-to-date.
+Wed Jan 4 10:52:04 CST 2017
+Already up-to-date.
+Wed Jan 4 10:54:04 CST 2017
+Already up-to-date.
+Wed Jan 4 10:56:02 CST 2017
+Already up-to-date.
+Wed Jan 4 10:58:03 CST 2017
+Already up-to-date.
+Wed Jan 4 11:00:04 CST 2017
+Merge made by the 'recursive' strategy.
+ apps/controller/Home/Trans.php | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+Wed Jan 4 11:02:04 CST 2017
+Already up-to-date.
+Wed Jan 4 11:04:03 CST 2017
+Already up-to-date.
+Wed Jan 4 11:06:02 CST 2017
+Already up-to-date.
+Wed Jan 4 11:08:06 CST 2017
+Already up-to-date.
+Wed Jan 4 11:10:03 CST 2017
+Already up-to-date.
+Wed Jan 4 11:12:03 CST 2017
+Already up-to-date.
+Wed Jan 4 11:12:46 CST 2017
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Wed Jan 4 11:17:42 CST 2017
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Service already started!
+Wed Jan 4 11:34:56 CST 2017
+Already up-to-date.
+Could not open input file: webroot/main.php
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:36:36 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:37:35 CST 2017
+Already up-to-date.
+Could not open input file: webroot/main.php
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:38:03 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:38:17 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:39:27 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:39:43 CST 2017
+Already up-to-date.
+Could not open input file: webroot/main.php
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:42:01 CST 2017
+Could not open input file: webroot/main.php
+Already up-to-date.
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:42:37 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:42:49 CST 2017
+Service startting success!
+[2017-01-04 11:42:50 @14852.0]	WARNING	swSocket_bind: bind(0.0.0.0:9988) failed. Error: Address already in use [98]
+Already up-to-date.
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:43:18 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:43:31 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:43:50 CST 2017
+Already up-to-date.
+Could not open input file: webroot/main.php
+Service startting success!
+Wed Jan 4 11:44:02 CST 2017
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:50:37 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:51:32 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:53:45 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:54:03 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:54:24 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:55:06 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:55:40 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:55:54 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:56:02 CST 2017
+Already up-to-date.
+Service startting success!
+Wed Jan 4 11:56:11 CST 2017
