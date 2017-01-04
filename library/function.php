@@ -45,3 +45,22 @@ function httpPost($url,$data){
     return $response;
 }
 
+/**
+ * 将数据存放至Redsis，由Server任务转发给B端
+ * @param $data
+ * @param $k
+ * @return mixed
+ */
+function saveData($k,$data){
+    Log::write("SaveData function:=>>>>");
+    $key = "S:".$k;
+
+    Log::write("Saved key is:=>".$key);
+    $re = yield Db::redis()->lpush($key,json_encode($data));
+    Log::write("Saved result is:".$re);
+    var_dump($re);
+    return $re;
+}
+
+
+

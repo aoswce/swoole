@@ -13,7 +13,6 @@ use ZPHP\Core\Config;
 use ZPHP\Controller\Controller;
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
-use ZPHP\Queue\Adapter\Redis;
 
 /**
  * Class Bar
@@ -121,22 +120,5 @@ class Trans extends Controller{
             }
         }
         return $this->result;
-    }
-
-    /**
-     * 将数据存放至Redsis，由Server任务转发给B端
-     * @param $data
-     * @param $k
-     * @return mixed
-     */
-    protected function saveData($k,$data){
-        Log::write("SaveData function:=>>>>");
-        $key = "S:".$k;
-
-        Log::write("Saved key is:=>".$key);
-        $re = yield Db::redis()->lpush($key,json_encode($data));
-        Log::write("Saved result is:".$re);
-        var_dump($re);
-        return $re;
     }
 }
