@@ -64,9 +64,11 @@ class TcpClient
     public function send(){
         //从Redis获取要发送的数据
         $redis = self::getRedis();
+        $i = 0;
         //循环检测队列，将通知触发至服务
         while(true){
-            //sleep(1);
+            echo "you got your data times => ". $i;
+            sleep(1);
             $sends = $redis->keys('S:*:*:*');
             //如果有数据将数据发送动作发送给服务端
             if(count($sends)){
@@ -76,6 +78,7 @@ class TcpClient
                     $this->client->send(json_encode($data));
                 }
             }
+            $i++;
         }
     }
 
@@ -118,11 +121,14 @@ class TcpClient
     private function getRedis(){
         global $config;
         $redis = new Redis;
-        $re = $redis->connect(
-            $config['redis']['master']['host'],
-            $config['redis']['master']['port']
-        );
-
+        try{
+            $re = $redis->connect(
+                $config['redis']['master']['host'],
+                $config['redis']['master']['port']
+            );
+        }catch (Exception $e){
+            print_r($e->getMessage());
+        }
         return $redis;
     }
 }
