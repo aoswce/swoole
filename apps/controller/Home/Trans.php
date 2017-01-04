@@ -130,7 +130,9 @@ class Trans extends Controller{
      * @return mixed
      */
     protected function saveData($k,$data){
+        Log::write("SaveData function:=>>>>");
         $key = "S:".$k;
+
         Log::write("Saved key is:=>".$key);
         $re = yield Db::redis()->lpush($key,json_encode($data));
         Log::write("Saved result is:".$re);
