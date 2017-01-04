@@ -130,9 +130,9 @@ class Trans extends Controller{
      */
     protected function saveData($k,$data){
         $key = "S:".$k;
-        Log::write($key);
+        Log::write("Saved key is:=>".$key);
         $re = yield Db::redis()->lpush($key,json_encode($data));
-        Log::write($re);
+        Log::write("Saved result is:".$re);
         var_dump($re);
         return $re;
     }
