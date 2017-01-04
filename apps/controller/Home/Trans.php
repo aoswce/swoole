@@ -109,10 +109,10 @@ class Trans extends Controller{
 
         if(!empty($rawData)){
             //此处数据保存至Redis
-           Log::write("==============77777777777777===========");
-           $data = json_decode($rawData);
+            Log::write("==============77777777777777===========");
+            $data = json_decode($rawData);
             //$re = self::saveData("wine:save:".$data['seller_id'],$data);
-            $re = yield saveData("wine:save",$data);
+            $re = yield saveData("wine:save",$rawData);
             Log::write("===========888888888888888888888888==============");
             if($re){
                 $this->result['errCode'] = 2 ;
