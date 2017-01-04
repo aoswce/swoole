@@ -8,11 +8,12 @@
 
 namespace controller\Home;
 
-use ZPHP\Controller\Apicontroller;
+use ZPHP\Controller\Controller;
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
 
-class Index extends Apicontroller{
+class Index extends Controller{
+    public $isApi = true;
     public function index($id=0){
         Log::write("index>>>",1);
         return 'hello zpi!->{$id}'.$id;

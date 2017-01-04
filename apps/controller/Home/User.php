@@ -8,10 +8,11 @@
 
 namespace controller\Home;
 
-use ZPHP\Controller\Apicontroller;
+use ZPHP\Controller\Controller;
 use ZPHP\Core\Db;
 
-class User extends Apicontroller{
+class User extends Controller{
+    public $isApi =true;
     public function getDetail(){
         $user = yield Db::table('user')->where(['id'=>1])->find();
         return ['users'=>$user];

@@ -10,7 +10,7 @@ namespace controller\Home;
 
 
 use ZPHP\Core\Config;
-use ZPHP\Controller\Apicontroller;
+use ZPHP\Controller\Controller;
 use ZPHP\Core\Log;
 
 /**
@@ -18,7 +18,8 @@ use ZPHP\Core\Log;
  * @package controller\Home
  * 处理来自B端的所有请求
  */
-class Bar extends Apicontroller{
+class Bar extends Controller{
+    public $isApi = true;
     private  $result = ['errCode'=>1,'msg'=>'default error:some thing wrong,try again!'];
     /**
      * B===>> P ===>>S

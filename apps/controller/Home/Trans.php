@@ -10,7 +10,7 @@ namespace controller\Home;
 
 
 use ZPHP\Core\Config;
-use ZPHP\Controller\Apicontroller;
+use ZPHP\Controller\Controller;
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
 use ZPHP\Queue\Adapter\Redis;
@@ -20,7 +20,8 @@ use ZPHP\Queue\Adapter\Redis;
  * @package controller\Home
  * 处理来自S端的所有请求
  */
-class Trans extends Apicontroller{
+class Trans extends Controller{
+    public $isApi = true;
     private  $result = ['errCode'=>1,'msg'=>'default error:some thing wrong,try again!'];
 
 
