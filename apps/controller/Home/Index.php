@@ -33,6 +33,7 @@ class Index extends Apicontroller{
     }
 
     public function main(){
+        Log::write("main>>>",1);
         return 'hello, Welcome here!';
     }
 
