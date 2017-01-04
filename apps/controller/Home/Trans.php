@@ -52,7 +52,8 @@ class Trans extends Apicontroller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = self::saveData("wine:fetch:".$data['seller_id'],$data);
+            //$re = self::saveData("wine:fetch:".$data['seller_id'],$data);
+            $re = $this->saveData("wine:fetch:".$data['seller_id'],$data);
             if($re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
@@ -107,8 +108,8 @@ class Trans extends Apicontroller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = self::saveData("wine:save:".$data['seller_id'],$data);
-
+            //$re = self::saveData("wine:save:".$data['seller_id'],$data);
+            $re = $this->saveData("wine:save:".$data['seller_id'],$data);
             if($re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
