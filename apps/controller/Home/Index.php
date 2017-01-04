@@ -33,7 +33,7 @@ class Index extends Apicontroller{
     }
 
     public function main(){
-        Log::write("main>>>",1);
+        Log::write("You request this index page's main method:好吧，你访问了这个方法，请看日志吧！>>>",1);
         return 'hello, Welcome here!';
     }
 
