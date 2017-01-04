@@ -43,18 +43,20 @@ class Trans extends Controller{
       }
      */
     public function winefetch(){
-
+        Log::write("Server fetch wine Start...");
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
+        Log::write("Send Data:".($rawData));
+        Log::write("Send Data:".json_encode($rawData));
 
         if(!empty($rawData)){
             //此处数据保存至Redis
-
+            Log::write("==============77777777777777===========");
             $data = json_decode($rawData);
-            $re = yield saveData("wine:fetch".$data['seller_id'],$data);
-
-            //$re = $this->saveData("wine:fetch:",$data);
+            //$re = self::saveData("wine:save:".$data['seller_id'],$data);
+            $re = yield saveData("wine:fetch",$rawData);
+            Log::write("===========888888888888888888888888==============");
             if($re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
@@ -65,6 +67,7 @@ class Trans extends Controller{
         }
         return $this->result;
     }
+
 
     /**
      * S===>> p ===>> B
