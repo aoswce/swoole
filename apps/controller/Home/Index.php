@@ -14,7 +14,9 @@ use ZPHP\Core\Log;
 
 class Index extends Apicontroller{
     public function index($id=0){
+        Log::write("index>>>",1);
         return 'hello zpi!->{$id}'.$id;
+
     }
 
     public function test($id=0){

@@ -129,9 +129,9 @@ class Trans extends Apicontroller{
      */
     protected function saveData($k,$data){
         $key = "S:".$k;
-        log::write($key);
+        //log::write($key);
         $re = yield Db::redis()->lpush($key,json_encode($data));
-        var_dump($re);
+        //var_dump($re);
         return $re;
     }
 }
