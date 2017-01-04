@@ -109,10 +109,11 @@ class Server{
   **/
   function onTask($serv,$task_id,$form_id,$data){
       echo "Start Task:[task ID:{$task_id}]>[formID:{$form_id}]!\n";
-      //var_dump($data);
+      var_dump($data);
 
       $fd_arr = explode('_',$data['fd']);
       $fdPre = $fd_arr[0]."_";
+      //如果没有注册不存在$secureKey
       $fdEnd = $secureKey = $fd_arr[1];
 
       $redis = self::getRedis();

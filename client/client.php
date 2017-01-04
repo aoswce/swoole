@@ -15,6 +15,7 @@ use ZPHP\Core\Db;
 class Client
 {
     private $client;
+    private $securekey;
     /**
      * 用于标识商家端
      * @var
@@ -28,6 +29,9 @@ class Client
         //var_dump($config);
         $this->client = new Swoole\Client(SWOOLE_SOCK_TCP,SWOOLE_SOCK_ASYNC);
         $this->clientID = $config['client']['host'];
+        $this->securekey = $config['client']['secureKey'];
+
+
 
         $this->client->on('connect',function($cli){
             self::register();
@@ -69,17 +73,17 @@ class Client
     }
 
     function dataok(){
-        $data = array('fd'=>$this->clientID.'_12aew4qqwa23q','cmd'=>'dataok','key'=>'','status'=>1);
+        $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'dataok','key'=>'','status'=>1);
         self::send($data);
     }
 
     function register(){
-      $data = array('fd'=>$this->clientID.'_','cmd'=>'register');
+      $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'register');
       $re = $this->client->send(json_encode($data));
       var_dump($re);
       while(!$re){
         sleep(2);
-        $data = array('fd'=>$this->clientID.'_12aew4qqwa23q','cmd'=>'register','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+        $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'register','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
         $re = $this->client->send(json_encode($data));
         if(!$re){
           break;
@@ -88,11 +92,11 @@ class Client
     }
 
     function login(){
-      $data = array('fd'=>$this->clientID.'_','cmd'=>'login');
+      $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'login');
       $re = $this->client->send(json_encode($data));
       while(!$re){
         sleep(2);
-        $data = array('fd'=>$this->clientID.'_12aew4qqwa23q','cmd'=>'login','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+        $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'login','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
         $re = $this->client->send(json_encode($data));
         if(!$re){
           break;

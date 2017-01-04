@@ -31,7 +31,7 @@ $config = array(
     'client'=>array(
         'host'=> '1111',
         'port'=> 9501,
-        'timeout'=>0.5
+        'secureKey'=>'12aew4qqwa23q'
     ),
     'proxy_enable'=>false,
     'proxy'=>array(
