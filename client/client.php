@@ -74,7 +74,7 @@ class Client
 
     function dataok(){
         $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'dataok','key'=>'','status'=>1);
-        self::send($data);
+        $this->client->send($data);
     }
 
     function register(){
