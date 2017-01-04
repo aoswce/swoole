@@ -1,5 +1,5 @@
 #! /bin/sh
-(/usr/bin/kill -9 `ps -ef | grep -v grep | grep zapi | awk '{print $2}'`  )  && 
+(/usr/bin/kill -9 `ps -ef | grep -v grep | grep zapi | awk '{print $2}'` & )  &&
 (
 cd /usr/local/yele-server/ &&
 

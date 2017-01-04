@@ -1,1 +1,6 @@
 /vendor
+/vendor/aoswce
+.git_crontab.log
+.git_crontab.sh
+.git_crontab.cron
+composer.lock

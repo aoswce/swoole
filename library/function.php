@@ -56,7 +56,7 @@ function saveData($k,$data){
     $key = "S:".$k;
 
     Log::write("Saved key is:=>".$key);
-    $re = yield Db::redis()->lpush($key,json_encode($data));
+    $re = yield Db::redis()->lpush($key,$data);
     Log::write("Saved result is:".$re);
     var_dump($re);
     return $re;
