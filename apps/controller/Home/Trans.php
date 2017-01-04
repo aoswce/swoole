@@ -52,7 +52,7 @@ class Trans extends Controller{
             //此处数据保存至Redis
 
             $data = json_decode($rawData);
-            $re = yield saveData("wine:fetch:".$data['seller_id'],$data);
+            $re = yield saveData("wine:fetch".$data['seller_id'],$data);
 
             //$re = $this->saveData("wine:fetch:",$data);
             if($re){
@@ -105,14 +105,13 @@ class Trans extends Controller{
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
         Log::write("Send Data:".json_encode($rawData));
-        $this->innerFunction();
-        self::innerFunction();
+
         if(!empty($rawData)){
             //此处数据保存至Redis
            Log::write("==============77777777777777===========");
             $data = json_decode($rawData);
             //$re = self::saveData("wine:save:".$data['seller_id'],$data);
-            $re = yield saveData("wine:save:",$data);
+            $re = yield saveData("wine:save",$data);
             Log::write("===========888888888888888888888888==============");
             if($re){
                 $this->result['errCode'] = 2 ;
