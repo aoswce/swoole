@@ -104,13 +104,14 @@ class Trans extends Controller{
         $Uri = Config::get('uri');
         $urls = $Uri['urls'];
         $rawData = $this->request->rawContent();
-        log::write("Send Data:".json_encode($rawData));
+        Log::write("Send Data:".json_encode($rawData));
         if(!empty($rawData)){
             //此处数据保存至Redis
-
+           Log::write("=========================");
             $data = json_decode($rawData);
             //$re = self::saveData("wine:save:".$data['seller_id'],$data);
             $re = $this->saveData("wine:save:",$data);
+            Log::write("===========888888888888888888888888==============");
             if($re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
