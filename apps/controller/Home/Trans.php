@@ -106,7 +106,7 @@ class Trans extends Controller{
         Log::write("Send Data:".json_encode($rawData));
         if(!empty($rawData)){
             //此处数据保存至Redis
-           Log::write("=========================");
+           Log::write("==============77777777777777===========");
             $data = json_decode($rawData);
             //$re = self::saveData("wine:save:".$data['seller_id'],$data);
             $re = saveData("wine:save:",$data);
