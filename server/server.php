@@ -223,6 +223,7 @@ class Server{
    */
   function onReceive($serv,$fd,$form_id,$data){
       $info = $serv->connection_info($fd, $form_id);
+      var_dump($info);
       //来自9502的内网管理端口
       if($info['from_port'] == 9502) {
           $serv->send($fd, "welcome admin\n");

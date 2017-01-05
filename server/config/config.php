@@ -59,11 +59,11 @@ $config = array(
     ),
     'mysql'=>array(
         'master'=>array(
-            'host'=>'',
+            'host'=>'rds6nim7frjqb7j.mysql.rds.aliyuncs.com',
             'port'=>3306,
-            'user'=>'yele',
-            'pass'=>'yele123',
-            'db'  =>'db'
+            'user'=>'yele_proxy',
+            'pass'=>'Th8YxzKGGCd1',
+            'db'  =>'yele_proxy'
         ),
         'slave'=>array(
 
