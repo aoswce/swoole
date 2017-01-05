@@ -20,17 +20,18 @@ class TcpClient
     public function __construct()
     {
         //var_dump($config);
-        $this->client = new Swoole\Client(SWOOLE_SOCK_TCP|SWOOLE_KEEP,SWOOLE_SOCK_ASYNC);
+        // fpm : SWOOLE_KEEP
+        $this->client = new Swoole\Client(SWOOLE_SOCK_TCP,SWOOLE_SOCK_ASYNC);
 
 
         $this->client->on('connect',function($cli){
             global $config;
-            echo "Server:Start...\n";
+            echo "Server-Client:Start...\n";
             swoole_set_process_name('Yele-server' . ' Client running ' .
                 'TCP'.
                 '://' . $config['server']['master']['host'] .
                 ':' . $config['server']['master']['port']
-                . " time:".date('Y-m-d H:i:s')."  master:");
+                . " time:".date('Y-m-d H:i:s')."  master:{$cli}");
 
             self::register();
             sleep(2);
