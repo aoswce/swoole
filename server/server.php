@@ -7,7 +7,7 @@ require ROOTPATH.'/vendor/autoload.php';
 
 
 define('proxy_enable',$config['proxy_enable']);
-
+define('DEBUG', true);
 
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
