@@ -299,10 +299,7 @@ class Server{
             //work一启动加载连接池的链接、组件容器、路由
             Db::getInstance()->initMysqlPool($wid, Config::getField('database','master'));
             Db::getInstance()->initRedisPool($wid, Config::get('redis'));
-            Db::getInstance()->initSessionRedisPool($wid, Config::get('session'));
 
-
-            Session::init();
             $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
 
         }
