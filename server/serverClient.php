@@ -34,8 +34,8 @@ class TcpClient
             echo "Server-Client:Start...\n";
             swoole_set_process_name('Yserver' . ' Client running ' .
                 'TCP'.
-                '://' . $config['server']['client']['host'] .
-                ':' . $config['server']['client']['port']
+                '://' . $config['client']['host'] .
+                ':' . $config['client']['port']
                 . " time:".date('Y-m-d H:i:s')."  master");
 
             self::register();
