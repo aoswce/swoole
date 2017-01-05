@@ -16,6 +16,7 @@ use ZPHP\ZPHP;
 define('DEBUG', true);
 
 use ZPHP\Core\Log;
+use ZPHP\Core\Db;
 
 class TcpClient
 {
@@ -48,6 +49,8 @@ class TcpClient
             echo "==================Redis>> ===================\n";
             var_dump($redis);
             echo "==================Redis>> ===================\n";
+            $re1=Db::redis()->rpush("S:my:data",'123456');
+            var_dump($re1);
             //循环检测队列，将通知触发至服务
             $i=0;
             while(true){
@@ -82,7 +85,6 @@ class TcpClient
                 }catch (Exception $e){
                     echo "==================Redis Exception ===================\n";
                     Log::write("Server-client Error: ");
-                    $e->getMessage();
                     var_dump($e);
                     echo "【".$e->getCode().":".$e->getMessage()."】\n";
                     echo "==================Redis Exception ===================\n";
@@ -167,11 +169,14 @@ class TcpClient
         global $config;
         $redis = new Redis;
         try{
-            $re = $redis->connect(
+            $redis->connect(
                 $config['redis']['master']['host'],
                 $config['redis']['master']['port']
             );
         }catch (Exception $e){
+            echo "==================Redis Connect Exception ===================\n";
+            echo $e->getCode().":".$e->getMessage().$e->getTraceAsString()."\n";
+            echo "==================Redis Connect Exception ===================\n";
             print_r($e->getMessage());
         }
         return $redis;
