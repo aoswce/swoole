@@ -227,7 +227,7 @@ class Server{
       var_dump($info);
       echo "==============info======================";
       //来自9502的内网管理端口
-      if($info['from_port'] == 9502) {
+      if($info['server_port'] == 9502) {
           $serv->send($fd, "welcome admin\n");
       }
       //来自外网
