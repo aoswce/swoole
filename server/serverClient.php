@@ -177,8 +177,9 @@ class TcpClient
 
     private function getRedis(){
         global $config;
-        $redis = new Redis;
         try{
+            $redis = new Redis;
+
             $redis->connect(
                 $config['redis']['master']['host'],
                 $config['redis']['master']['port']
