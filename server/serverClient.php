@@ -47,9 +47,9 @@ class TcpClient
             $redis = self::getRedis();
             //循环检测队列，将通知触发至服务
             while(true){
-                echo "==================sc while===================";
+                echo "==================sc while===================\n";
                 Log::write("Server-client redis scan...\n");
-                echo "==================sc while===================";
+                echo "==================sc while===================\n";
                 sleep(1);
                 try{
                 if($redis){
@@ -61,6 +61,7 @@ class TcpClient
                 }
                 //如果有数据将数据发送动作发送给服务端
                 if(count($sends)){
+                    echo "==================count(\$sends)[{$sends}]===================\n";
                     Log::write("Server-client Send cmd: [sendClient]\n");
                     $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
                     $re = $this->client->send(json_encode($data));
