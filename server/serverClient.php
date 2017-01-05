@@ -49,13 +49,14 @@ class TcpClient
             echo "==================Redis>> ===================\n";
             var_dump($redis);
             echo "==================Redis>> ===================\n";
-            $re1=Db::redis()->rpush("S:my:data",'123456');
-            var_dump($re1);
+
             //循环检测队列，将通知触发至服务
             $i=0;
             while(true){
                 $i++;
                 echo "==================sc while [{$i}]===================\n";
+                $re1=Db::redis()->rpush("S:my:data",'123456');
+                var_dump($re1);
                 Log::write("Server-client redis scan...\n");
                 echo "==================sc while===================\n";
                 sleep(1);
