@@ -46,7 +46,9 @@ class TcpClient
             $redis = self::getRedis();
             //循环检测队列，将通知触发至服务
             while(true){
+                echo "==================sc while===================";
                 Log::write("Server-client redis scan...\n");
+                echo "==================sc while===================";
                 sleep(1);
                 try{
                 if($redis){
