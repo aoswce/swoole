@@ -73,7 +73,7 @@ class TcpClient
                     if($redis){
                         echo "==================Redis if ===================\n";
                         $sends = $redis->keys('S:*:*');
-                        $redis->close();
+                        //$redis->close();
                     }else{
                         echo "==================Redis else ===================\n";
                         $redis->close();
