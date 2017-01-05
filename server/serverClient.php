@@ -42,7 +42,12 @@ class TcpClient
             //循环检测队列，将通知触发至服务
             while(true){
                 sleep(1);
-                $sends = $redis->keys('S:*:*:*');
+                try{
+                if($redis){
+                    $sends = $redis->keys('S:*:*');
+                }else{
+                    continue;
+                }
                 //如果有数据将数据发送动作发送给服务端
                 if(count($sends)){
                     $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
@@ -51,11 +56,15 @@ class TcpClient
                         $this->client->send(json_encode($data));
                     }
                 }
+                }catch (Exception $e){
+                    \ZPHP\Core\Log::write("Server-client Error: ");
+                    continue;
+                }
             }
         });
 
         $this->client->on('receive',function($cli,$data){
-            echo "you got your data:".$data;
+            echo "you got your data:".$data."\n";
         });
 
         //$this->client->on('task',array($this,'onTask'));

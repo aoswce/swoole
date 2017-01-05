@@ -31,6 +31,12 @@ class Server{
                             $config['server']['master']['port']
                         );
 
+      $this->serv->addlistener(
+                            $config['server']['slave']['host'],
+                            $config['server']['slave']['port'],
+                            SWOOLE_SOCK_TCP
+      );
+
       /*
       //创建 redis
 
@@ -216,15 +222,24 @@ class Server{
    * $form_id : from_id是来自于哪个reactor线程，目前尚未用到
    */
   function onReceive($serv,$fd,$form_id,$data){
-      $data = (array)json_decode($data);
-      $data['fds']=$fd;
-      echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
-
-      if(!empty($data['fd']) && self::validate($data['fd'])){
-        $this->serv->task($data);
-      }else{
-        echo "Error Data Here!";
+      $info = $serv->connection_info($fd, $form_id);
+      //来自9502的内网管理端口
+      if($info['from_port'] == 9502) {
+          $serv->send($fd, "welcome admin\n");
       }
+      //来自外网
+      else {
+          $data = (array)json_decode($data);
+          $data['fds']=$fd;
+          echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
+
+          if(!empty($data['fd']) && self::validate($data['fd'])){
+              $this->serv->task($data);
+          }else{
+              echo "Error Data Here!";
+          }
+      }
+
   }
 
     /**

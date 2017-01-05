@@ -24,13 +24,15 @@ $config = array(
             'timeout'=>0.5
         ),
         'slave'=>array(
-
+            'host'=>'0.0.0.0',
+            'port'=>9502,
+            'timeout'=>0.5
         )
 
     ),
     'client'=>array(
         'host'=> '127.0.0.1',
-        'port'=> 9501,
+        'port'=> 9502,
         'timeout'=>0.5
     ),
     'proxy_enable'=>false,
