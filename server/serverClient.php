@@ -55,8 +55,10 @@ class TcpClient
             while(true){
                 $i++;
                 echo "==================sc while [{$i}]===================\n";
-                $re1=Db::redis()->rpush("S:my:data",'123456');
+                $re1 = yield Db::redis()->rpush("S:my:data1",'123456');
+                $re2 = yield Db::redis()->lpush("S:my:data2",'123456');
                 var_dump($re1);
+                var_dump($re2);
                 Log::write("Server-client redis scan...\n");
                 echo "==================sc while===================\n";
                 sleep(1);
