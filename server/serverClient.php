@@ -25,6 +25,14 @@ class TcpClient
 
 
         $this->client->on('connect',function($cli){
+            global $config;
+            echo "Server:Start...\n";
+            swoole_set_process_name('Yele-server' . ' Client running ' .
+                'TCP'.
+                '://' . $config['server']['master']['host'] .
+                ':' . $config['server']['master']['port']
+                . " time:".date('Y-m-d H:i:s')."  master:" . $cli->master_pid);
+
             self::register();
             sleep(2);
             self::login();
