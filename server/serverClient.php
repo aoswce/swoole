@@ -31,7 +31,7 @@ class TcpClient
                 'TCP'.
                 '://' . $config['server']['master']['host'] .
                 ':' . $config['server']['master']['port']
-                . " time:".date('Y-m-d H:i:s')."  master:{$cli}");
+                . " time:".date('Y-m-d H:i:s')."  master");
 
             self::register();
             sleep(2);
