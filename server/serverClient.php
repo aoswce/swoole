@@ -1,5 +1,9 @@
 <?php
 namespace com\yele\server;
+
+use ZPHP\Core\Log;
+use ZPHP\Core\Db;
+use Swoole;
 /**
  * Created by PhpStorm.
  * User: Avine
@@ -12,12 +16,11 @@ require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
 
 require ROOTPATH.'/vendor/autoload.php';
-use ZPHP\ZPHP;
+
 
 define('DEBUG', true);
 
-use ZPHP\Core\Log;
-use ZPHP\Core\Db;
+
 
 class TcpClient
 {
