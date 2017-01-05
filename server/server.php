@@ -222,18 +222,19 @@ class Server{
    * $from_id : from_id是来自于哪个reactor线程，目前尚未用到
    */
   function onReceive($serv,$fd,$from_id,$data){
+      $data = (array)json_decode($data);
+      echo "==============recv data======================";
+      var_dump($data);
+      echo "==============recv data======================";
       $info = $serv->connection_info($fd, $from_id);
       echo "Get Received From 【{$info['remote_ip']}】: 【{$data['cmd']}】 Request:[fromID:{$from_id}][fd:{$fd}]connected!\n";
       echo "==============info======================";
       var_dump($info);
       echo "==============info======================";
-      //来自9502的内网管理端口
-      if($info['server_port'] == 9502) {
+
+      if($info['server_port'] == 9502) {//来自9502的内网管理端口
           $serv->send($fd, "welcome admin\n");
-      }
-      //来自外网
-      else {
-          $data = (array)json_decode($data);
+      }else {                           //来自外网9501的端口
           $data['fds']=$fd;
 
           if(!empty($data['fd']) && self::validate($data['fd'])){
