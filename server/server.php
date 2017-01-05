@@ -79,9 +79,9 @@ class Server{
       $this->serv->on('receive', array($this, 'onReceive'));
 
       //必须在onWorkerStart回调中创建redis/mysql连接
-      $this->serv->on('onWorkerstart', array($this, 'onWorkerstart'));
+      $this->serv->on('Workerstart', array($this, 'onWorkerstart'));
 
-      $this->serv->on('onManagerStart', array($this, 'onManagerStart'));
+      $this->serv->on('ManagerStart', array($this, 'onManagerStart'));
 
       //监听任务开启
       $this->serv->on('task', array($this, 'onTask'));
