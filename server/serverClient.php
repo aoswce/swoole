@@ -82,6 +82,10 @@ class TcpClient
                 }catch (Exception $e){
                     echo "==================Redis Exception ===================\n";
                     Log::write("Server-client Error: ");
+                    $e->getMessage();
+                    var_dump($e);
+                    echo "【".$e->getCode().":".$e->getMessage()."】\n";
+                    echo "==================Redis Exception ===================\n";
                     continue;
                 }
             }
