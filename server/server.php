@@ -257,7 +257,7 @@ class Server{
     function onWorkerstart($serv, $wid) {
         global $config;
         if($serv->taskworker){
-            swoole_set_process_name('Yserver' . " Server tasker  num: ".($serv->task_id - $config['runparams']['task_worker_num'])." pid " . $serv->worker_pid);
+            swoole_set_process_name('Yserver' . " Server tasker  num: ".($wid - $config['runparams']['task_worker_num'])." pid " . $serv->worker_pid);
         }else{
             swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
         }
