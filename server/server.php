@@ -298,7 +298,6 @@ class Server{
             //worker进程启动协程调度器
             //work一启动加载连接池的链接、组件容器、路由
             Db::getInstance()->initMysqlPool($wid, Config::getField('database','master'));
-            Db::getInstance()->initRedisPool($wid, Config::get('redis'));
 
             $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
 
@@ -312,7 +311,6 @@ class Server{
     function onWorkerstop($server, $workerId){
         if(!$server->taskworker) {
             Db::getInstance()->freeMysqlPool();
-            Db::getInstance()->freeRedisPool();
         }
         parent::onWorkerStop($server, $workerId);
     }
