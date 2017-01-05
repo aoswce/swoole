@@ -90,6 +90,8 @@ class Server{
 
       //必须在onWorkerStart回调中创建redis/mysql连接
       $this->serv->on('Workerstart', array($this, 'onWorkerstart'));
+      $this->serv->on('Workerstop', array($this, 'onWorkerstop'));
+
 
       $this->serv->on('ManagerStart', array($this, 'onManagerStart'));
 
@@ -285,6 +287,37 @@ class Server{
         }else{
             swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
         }
+
+        //parent::onWorkerStart($server, $workerId);
+        $common = Config::get('common_file');
+        if(!empty($common)){
+            require ROOTPATH.$common;
+        }
+        if (!$serv->taskworker) {
+            //worker进程启动协程调度器
+            //work一启动加载连接池的链接、组件容器、路由
+            Db::getInstance()->initMysqlPool($wid, Config::getField('database','master'));
+            Db::getInstance()->initRedisPool($wid, Config::get('redis'));
+            Db::getInstance()->initSessionRedisPool($wid, Config::get('session'));
+            App::init(Factory::getInstance(\ZPHP\Core\DI::class));
+            Route::init();
+            Session::init();
+            $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
+            $this->dispatcher = Factory::getInstance(\ZPHP\Core\Dispatcher::class);
+            $this->requestDeal = Factory::getInstance(\ZPHP\Core\Request::class, $this->coroutineTask);
+        }
+    }
+
+    /**
+     * @param $server
+     * @param $workerId
+     */
+    function onWorkerstop($server, $workerId){
+        if(!$server->taskworker) {
+            Db::getInstance()->freeMysqlPool();
+            Db::getInstance()->freeRedisPool();
+        }
+        parent::onWorkerStop($server, $workerId);
     }
 
 

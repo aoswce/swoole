@@ -3,6 +3,7 @@ namespace com\yele\server;
 
 use ZPHP\Core\Log;
 use ZPHP\Core\Db;
+use ZPHP\Core\Config;
 use Swoole;
 /**
  * Created by PhpStorm.
@@ -198,14 +199,14 @@ class TcpClient
      * @param $workerId
      * @throws \Exception
      */
-    public function onWorkerStart($server, $workerId)
+    public function onWorkerStart($cli, $workerId)
     {
         //parent::onWorkerStart($server, $workerId);
         $common = Config::get('common_file');
         if(!empty($common)){
             require ROOTPATH.$common;
         }
-        if (!$server->taskworker) {
+        if (!$cli->taskworker) {
             //worker进程启动协程调度器
             //work一启动加载连接池的链接、组件容器、路由
             Db::getInstance()->initMysqlPool($workerId, Config::getField('database','master'));
