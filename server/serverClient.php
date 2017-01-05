@@ -35,9 +35,10 @@ class TcpClient
         // fpm : SWOOLE_KEEP
         $this->client = new Swoole\Client(SWOOLE_SOCK_TCP,SWOOLE_SOCK_ASYNC);
 
-        self::onWorkerStart();
+
 
         $this->client->on('connect',function($cli){
+            self::onWorkerStart($cli,99999);
             Log::write("==================sc while===================Server-client redis scan...==================sc while===================\n");
             global $config;
             echo "Server-Client:Start...\n";
@@ -206,18 +207,16 @@ class TcpClient
         if(!empty($common)){
             require ROOTPATH.$common;
         }
-        if (!$cli->taskworker) {
+        if (!$cli->isConnected()) {
             //worker进程启动协程调度器
             //work一启动加载连接池的链接、组件容器、路由
             Db::getInstance()->initMysqlPool($workerId, Config::getField('database','master'));
             Db::getInstance()->initRedisPool($workerId, Config::get('redis'));
             Db::getInstance()->initSessionRedisPool($workerId, Config::get('session'));
-            App::init(Factory::getInstance(\ZPHP\Core\DI::class));
-            Route::init();
+
+
             Session::init();
             $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
-            $this->dispatcher = Factory::getInstance(\ZPHP\Core\Dispatcher::class);
-            $this->requestDeal = Factory::getInstance(\ZPHP\Core\Request::class, $this->coroutineTask);
         }
     }
 

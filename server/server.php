@@ -2,6 +2,7 @@
 namespace com\yele\server;
 use ZPHP\Core\Db;
 use ZPHP\Core\Log;
+use ZPHP\Core\Config;
 use Swoole;
 
 define("ROOTPATH",dirname(dirname(__FILE__)));
