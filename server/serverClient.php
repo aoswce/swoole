@@ -27,7 +27,7 @@ class TcpClient
         $this->client->on('connect',function($cli){
             global $config;
             echo "Server-Client:Start...\n";
-            swoole_set_process_name('Yele-server' . ' Client running ' .
+            swoole_set_process_name('Yserver' . ' Client running ' .
                 'TCP'.
                 '://' . $config['server']['master']['host'] .
                 ':' . $config['server']['master']['port']
