@@ -46,16 +46,20 @@ class TcpClient
             //从Redis获取要发送的数据
             $redis = self::getRedis();
             //循环检测队列，将通知触发至服务
+            $i=0;
             while(true){
-                echo "==================sc while===================\n";
+                $i++;
+                echo "==================sc while [{$i}]===================\n";
                 Log::write("Server-client redis scan...\n");
                 echo "==================sc while===================\n";
                 sleep(1);
                 try{
                 if($redis){
+                    echo "==================Redis if ===================\n";
                     $sends = $redis->keys('S:*:*');
                     $redis->close();
                 }else{
+                    echo "==================Redis else ===================\n";
                     $redis->close();
                     continue;
                 }
@@ -70,6 +74,7 @@ class TcpClient
                     }
                 }
                 }catch (Exception $e){
+                    echo "==================Redis Exception ===================\n";
                     Log::write("Server-client Error: ");
                     continue;
                 }
