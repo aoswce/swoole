@@ -57,6 +57,7 @@ class TcpClient
                 }
                 //如果有数据将数据发送动作发送给服务端
                 if(count($sends)){
+                    Log::write("Server-client Send cmd: [sendClient]");
                     $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
                     $re = $this->client->send(json_encode($data));
                     if($re){continue;}else{//失败重发
