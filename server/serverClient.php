@@ -34,8 +34,8 @@ class TcpClient
             echo "Server-Client:Start...\n";
             swoole_set_process_name('Yserver' . ' Client running ' .
                 'TCP'.
-                '://' . $config['server']['master']['host'] .
-                ':' . $config['server']['master']['port']
+                '://' . $config['server']['client']['host'] .
+                ':' . $config['server']['client']['port']
                 . " time:".date('Y-m-d H:i:s')."  master");
 
             self::register();
@@ -50,7 +50,9 @@ class TcpClient
                 try{
                 if($redis){
                     $sends = $redis->keys('S:*:*');
+                    $redis->close();
                 }else{
+                    $redis->close();
                     continue;
                 }
                 //如果有数据将数据发送动作发送给服务端
