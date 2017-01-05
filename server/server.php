@@ -118,8 +118,8 @@ class Server{
    *
 
   **/
-  function onTask($serv,$task_id,$form_id,$data){
-      echo "Start Task:[task ID:{$task_id}]>[formID:{$form_id}]!\n";
+  function onTask($serv,$task_id,$from_id,$data){
+      echo "Start Task:[task ID:{$task_id}]>[fromID:{$from_id}]!\n";
       var_dump($data);
 
       $fd_arr = explode('_',$data['fd']);
@@ -219,10 +219,11 @@ class Server{
    * $data : 是客户端发送的数据，需要进行解析
    * $fd : 对应的客户端标识，此处的客户端应该是对应的商家端B，一个商家端只维持一个有效的连接，需要通过FD及发送的数据进行商家端辨识
    * $serv : 当前服务端标识
-   * $form_id : from_id是来自于哪个reactor线程，目前尚未用到
+   * $from_id : from_id是来自于哪个reactor线程，目前尚未用到
    */
-  function onReceive($serv,$fd,$form_id,$data){
-      $info = $serv->connection_info($fd, $form_id);
+  function onReceive($serv,$fd,$from_id,$data){
+      $info = $serv->connection_info($fd, $from_id);
+      echo "Get Received From 【{$info['remote_ip']}】: 【{$data['cmd']}】 Request:[fromID:{$from_id}][fd:{$fd}]connected!\n";
       echo "==============info======================";
       var_dump($info);
       echo "==============info======================";
@@ -234,7 +235,6 @@ class Server{
       else {
           $data = (array)json_decode($data);
           $data['fds']=$fd;
-          echo "Get Received 【{$data['cmd']}】 Request:[formID:{$form_id}][fd:{$fd}]connected!\n";
 
           if(!empty($data['fd']) && self::validate($data['fd'])){
               $this->serv->task($data);
