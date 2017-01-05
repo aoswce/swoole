@@ -15,7 +15,7 @@ $config = array(
         'dispatch_mode' => 2,
         'task_worker_num' => 8,  //task进程的数量
         "task_ipc_mode " => 3 ,  //使用消息队列通信，并设置为争抢模式
-        //"log_file" => "log/taskqueueu.log" ,//日志
+        "log_file" => "log/server.log" ,//日志
     ),
     'server'=>array(
         'master'=>array(
