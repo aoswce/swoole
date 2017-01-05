@@ -74,7 +74,7 @@ class Client
 
     function dataok(){
         $data = array('fd'=>$this->clientID.'_'.$this->securekey,'cmd'=>'dataok','key'=>'','status'=>1);
-        $this->client->send($data);
+        $this->client->send(json_encode($data));
     }
 
     function register(){
