@@ -54,9 +54,9 @@ class TcpClient
             self::login();
 
             //从Redis获取要发送的数据
-            //$redis = self::getRedis();
+            $redis = self::getRedis();
             echo "==================Redis>> ===================\n";
-            //var_dump($redis);
+            var_dump($redis);
             echo "==================Redis>> ===================\n";
 
             //循环检测队列，将通知触发至服务
@@ -64,17 +64,12 @@ class TcpClient
             while(true){
                 $i++;
                 echo "==================sc while [{$i}]===================\n";
-                $re1 = yield Db::redis()->rpush("S:my:data1",'123456');
-                $re2 = yield Db::redis()->lpush("S:my:data2",'123456');
-                var_dump($re1);
-                var_dump($re2);
                 Log::write("Server-client redis scan...\n");
                 echo "==================sc while===================\n";
                 sleep(1);
 
                 try{
                     //var_dump($redis);
-                    $num = yield Db::redis()->hget();
                     if($redis){
                         echo "==================Redis if ===================\n";
                         $sends = $redis->keys('S:*:*');
@@ -213,12 +208,6 @@ class TcpClient
             //worker进程启动协程调度器
             //work一启动加载连接池的链接、组件容器、路由
             Db::getInstance()->initMysqlPool($workerId, Config::getField('database','master'));
-            Db::getInstance()->initRedisPool($workerId, Config::get('redis'));
-            Db::getInstance()->initSessionRedisPool($workerId, Config::get('session'));
-
-
-            Session::init();
-            $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
         }
     }
 
@@ -230,9 +219,8 @@ class TcpClient
     public function onWorkerStop($server, $workerId){
         if(!$server->taskworker) {
             Db::getInstance()->freeMysqlPool();
-            Db::getInstance()->freeRedisPool();
         }
-        parent::onWorkerStop($server, $workerId);
+        //parent::onWorkerStop($server, $workerId);
     }
 }
 
