@@ -4,6 +4,7 @@ use ZPHP\Core\Db;
 use ZPHP\Core\Log;
 use ZPHP\Core\Config;
 use ZPHP\Core\Factory;
+use Redis;
 use Swoole;
 
 define("ROOTPATH",dirname(dirname(__FILE__)));
@@ -174,7 +175,7 @@ class Server{
                       $re = yield Db::table('user')->where(['id'=>1])->find();
                     break;
 
-
+          */
           case 'sendClient'://S Point msg getUser
             echo  "===================\n";
             var_dump($data);
@@ -197,7 +198,7 @@ class Server{
               $this->serv->send($fd_to,$value);
             }
             break;
-*/
+
           case 'logout':
             $re = $redis->keys('B*_log_'.$data['fd']."_");
             foreach ($re as $key => $value) {
