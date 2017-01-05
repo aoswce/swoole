@@ -56,26 +56,28 @@ class TcpClient
                 Log::write("Server-client redis scan...\n");
                 echo "==================sc while===================\n";
                 sleep(1);
+
                 try{
-                if($redis){
-                    echo "==================Redis if ===================\n";
-                    $sends = $redis->keys('S:*:*');
-                    $redis->close();
-                }else{
-                    echo "==================Redis else ===================\n";
-                    $redis->close();
-                    continue;
-                }
-                //如果有数据将数据发送动作发送给服务端
-                if(count($sends)){
-                    echo "==================count(\$sends)[{$sends}]===================\n";
-                    Log::write("Server-client Send cmd: [sendClient]\n");
-                    $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
-                    $re = $this->client->send(json_encode($data));
-                    if($re){continue;}else{//失败重发
-                        $this->client->send(json_encode($data));
+                    var_dump($redis);
+                    if($redis){
+                        echo "==================Redis if ===================\n";
+                        $sends = $redis->keys('S:*:*');
+                        $redis->close();
+                    }else{
+                        echo "==================Redis else ===================\n";
+                        $redis->close();
+                        continue;
                     }
-                }
+                    //如果有数据将数据发送动作发送给服务端
+                    if(count($sends)){
+                        echo "==================count(\$sends)[{$sends}]===================\n";
+                        Log::write("Server-client Send cmd: [sendClient]\n");
+                        $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
+                        $re = $this->client->send(json_encode($data));
+                        if($re){continue;}else{//失败重发
+                            $this->client->send(json_encode($data));
+                        }
+                    }
                 }catch (Exception $e){
                     echo "==================Redis Exception ===================\n";
                     Log::write("Server-client Error: ");
