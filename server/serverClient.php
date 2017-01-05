@@ -19,9 +19,8 @@ class TcpClient
 
     public function __construct()
     {
-        global $config;
         //var_dump($config);
-        $this->client = new Swoole\Client(SWOOLE_SOCK_TCP,SWOOLE_SOCK_ASYNC);
+        $this->client = new Swoole\Client(SWOOLE_SOCK_TCP|SWOOLE_KEEP,SWOOLE_SOCK_ASYNC);
 
 
         $this->client->on('connect',function($cli){
@@ -31,7 +30,7 @@ class TcpClient
                 'TCP'.
                 '://' . $config['server']['master']['host'] .
                 ':' . $config['server']['master']['port']
-                . " time:".date('Y-m-d H:i:s')."  master:" . $cli->master_pid);
+                . " time:".date('Y-m-d H:i:s')."  master:");
 
             self::register();
             sleep(2);
