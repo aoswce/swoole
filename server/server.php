@@ -3,14 +3,14 @@ define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
 #require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
-
+require ROOTPATH.'/vendor/autoload.php';
 
 
 define('proxy_enable',$config['proxy_enable']);
 
 
 use ZPHP\Core\Db;
-
+use ZPHP\Core\Log;
 
 
 class Server{
@@ -258,6 +258,8 @@ class Server{
           '://' . $config['server']['master']['host'] .
           ':' . $config['server']['master']['port']
           . " time:".date('Y-m-d H:i:s')."  master:" . $serv->master_pid);
+
+      Log::write("Server Start ...");
   }
 
   function OnShutdown($serv){
