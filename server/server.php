@@ -1,6 +1,8 @@
 <?php
 namespace com\yele\server;
-
+use ZPHP\Core\Db;
+use ZPHP\Core\Log;
+use Swoole;
 
 define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
@@ -11,9 +13,6 @@ require ROOTPATH.'/vendor/autoload.php';
 global $config;
 define('proxy_enable',$config['proxy_enable']);
 define('DEBUG', true);
-
-use ZPHP\Core\Db;
-use ZPHP\Core\Log;
 
 
 class Server{
