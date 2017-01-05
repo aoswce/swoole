@@ -47,6 +47,7 @@ class TcpClient
             $redis = self::getRedis();
             echo "==================Redis>> ===================\n";
             var_dump($redis);
+            echo "==================Redis>> ===================\n";
             //循环检测队列，将通知触发至服务
             $i=0;
             while(true){
