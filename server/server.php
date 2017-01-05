@@ -222,6 +222,7 @@ class Server{
    * $from_id : from_id是来自于哪个reactor线程，目前尚未用到
    */
   function onReceive($serv,$fd,$from_id,$data){
+      Log::write("Server Receive ...");
       $data = (array)json_decode($data);
       echo "==============recv data======================";
       var_dump($data);
