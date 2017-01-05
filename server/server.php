@@ -79,7 +79,7 @@ class Server{
       $this->serv->on('receive', array($this, 'onReceive'));
 
       //必须在onWorkerStart回调中创建redis/mysql连接
-      $this->serv->on('workerstart', array($this, 'onWorkerstart'));
+      $this->serv->on('onWorkerstart', array($this, 'onWorkerstart'));
 
       $this->serv->on('onManagerStart', array($this, 'onManagerStart'));
 
