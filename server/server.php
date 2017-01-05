@@ -289,7 +289,6 @@ class Server{
   function onConnect($serv,$fd){
       //TODO : 客户端连接时应该将客户的信息记录到Redis，用于统计连接的客户端
       echo "Client:{$fd}connected!\n";
-      var_dump($fd);
   }
 
   function onClose($serv,$fd){
