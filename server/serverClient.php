@@ -4,6 +4,7 @@ namespace com\yele\server;
 use ZPHP\Core\Log;
 use ZPHP\Core\Db;
 use ZPHP\Core\Config;
+use Redis;
 use Swoole;
 /**
  * Created by PhpStorm.

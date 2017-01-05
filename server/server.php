@@ -300,12 +300,11 @@ class Server{
             Db::getInstance()->initMysqlPool($wid, Config::getField('database','master'));
             Db::getInstance()->initRedisPool($wid, Config::get('redis'));
             Db::getInstance()->initSessionRedisPool($wid, Config::get('session'));
-            App::init(Factory::getInstance(\ZPHP\Core\DI::class));
-            Route::init();
+
+
             Session::init();
             $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
-            $this->dispatcher = Factory::getInstance(\ZPHP\Core\Dispatcher::class);
-            $this->requestDeal = Factory::getInstance(\ZPHP\Core\Request::class, $this->coroutineTask);
+
         }
     }
 
