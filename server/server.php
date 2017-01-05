@@ -81,6 +81,8 @@ class Server{
       //必须在onWorkerStart回调中创建redis/mysql连接
       $this->serv->on('workerstart', array($this, 'onWorkerstart'));
 
+      $this->serv->on('onManagerStart', array($this, 'onManagerStart'));
+
       //监听任务开启
       $this->serv->on('task', array($this, 'onTask'));
 
@@ -95,9 +97,24 @@ class Server{
 
       $this->serv->start();
   }
+    /**
+     * @param $server
+     * @throws \Exception
+     * @desc 服务启动，设置进程名
+     */
+    function onManagerStart($serv){
+        swoole_set_process_name('Yserver ' .
+            ' Server manager:' . $serv->manager_pid);
+        $this->putPidList(['manager'=>['manager' => $serv->manager_pid]]);
+    }
 
   function onWorkerstart($serv, $wid) {
-    echo "Work Id:",$wid,"\n";
+      global $config;
+      if($serv->taskworker){
+          swoole_set_process_name('Yserver' . " Server tasker  num: ".($serv->worker_id - $config['runparams']['task_worker_num'])." pid " . $serv->worker_pid);
+      }else{
+          swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
+      }
   }
 
   /**
@@ -227,7 +244,13 @@ class Server{
      * @param $serv
      */
   function onStart($serv){
+      global $config;
       echo "Server:Start...\n";
+      swoole_set_process_name('Yele-server' . ' Server running ' .
+          'TCP'.
+          '://' . $config['server']['master']['host'] .
+          ':' . $config['server']['master']['port']
+          . " time:".date('Y-m-d H:i:s')."  master:" . $serv->master_pid);
   }
 
   function onConnect($serv,$fd){

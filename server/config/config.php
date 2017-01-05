@@ -9,7 +9,7 @@
 
 $config = array(
     'runparams'=>array(
-        'worker_num' => 1,   //一般设置为服务器CPU数的1-4倍
+        'worker_num' => 4,   //一般设置为服务器CPU数的1-4倍
         'daemonize' => 0,  //以守护进程执行
         'max_request' => 10000,
         'dispatch_mode' => 2,
