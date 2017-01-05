@@ -72,6 +72,8 @@ class Server{
       //监听当前服务启动
       $this->serv->on('start', array($this, 'onStart'));
 
+      $this->serv->on('Shutdown',array($this,'OnShutdown'));
+
       //监听客户端服务连接
       $this->serv->on('connect', array($this, 'onConnect'));
 
@@ -92,8 +94,12 @@ class Server{
       //关闭客户端连接:通常在长连接中不调用此方法
       $this->serv->on('close',  array($this, 'onClose'));
 
+
+
       //设置当前服务参数
       $this->serv->set($config['runparams']);
+
+
 
       $this->serv->start();
   }
@@ -233,6 +239,10 @@ class Server{
           '://' . $config['server']['master']['host'] .
           ':' . $config['server']['master']['port']
           . " time:".date('Y-m-d H:i:s')."  master:" . $serv->master_pid);
+  }
+
+  function OnShutdown($serv){
+      echo "Server:Stoped Master[{$serv->master_pid}]...\n";
   }
     /**
      * @param $server
