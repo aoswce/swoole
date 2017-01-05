@@ -97,24 +97,7 @@ class Server{
 
       $this->serv->start();
   }
-    /**
-     * @param $server
-     * @throws \Exception
-     * @desc 服务启动，设置进程名
-     */
-    function onManagerStart($serv){
-        swoole_set_process_name('Yserver ' .
-            ' Server manager:' . $serv->manager_pid);
-    }
 
-  function onWorkerstart($serv, $wid) {
-      global $config;
-      if($serv->taskworker){
-          swoole_set_process_name('Yserver' . " Server tasker  num: ".($serv->worker_id - $config['runparams']['task_worker_num'])." pid " . $serv->worker_pid);
-      }else{
-          swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
-      }
-  }
 
   /**
    * data => array('fd'=>'B110_securekey','cmd'=>'register',data=>array())
@@ -245,12 +228,31 @@ class Server{
   function onStart($serv){
       global $config;
       echo "Server:Start...\n";
-      swoole_set_process_name('Yele-server' . ' Server running ' .
+      swoole_set_process_name('Yserver' . ' Server running ' .
           'TCP'.
           '://' . $config['server']['master']['host'] .
           ':' . $config['server']['master']['port']
           . " time:".date('Y-m-d H:i:s')."  master:" . $serv->master_pid);
   }
+    /**
+     * @param $server
+     * @throws \Exception
+     * @desc 服务启动，设置进程名
+     */
+    function onManagerStart($serv){
+        swoole_set_process_name('Yserver ' .
+            ' Server manager:' . $serv->manager_pid);
+    }
+
+    function onWorkerstart($serv, $wid) {
+        global $config;
+        if($serv->taskworker){
+            swoole_set_process_name('Yserver' . " Server tasker  num: ".($serv->task_id - $config['runparams']['task_worker_num'])." pid " . $serv->worker_pid);
+        }else{
+            swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
+        }
+    }
+
 
   function onConnect($serv,$fd){
       //TODO : 客户端连接时应该将客户的信息记录到Redis，用于统计连接的客户端
