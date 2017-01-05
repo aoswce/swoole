@@ -1,4 +1,6 @@
 <?php
+namespace com\yele\server;
+
 define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';

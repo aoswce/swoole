@@ -1,4 +1,5 @@
 <?php
+namespace com\yele\server;
 /**
  * Created by PhpStorm.
  * User: Avine
@@ -25,10 +26,12 @@ class TcpClient
 
     public function __construct()
     {
+
         //var_dump($config);
         // fpm : SWOOLE_KEEP
         $this->client = new Swoole\Client(SWOOLE_SOCK_TCP,SWOOLE_SOCK_ASYNC);
 
+        self::onWorkerStart();
 
         $this->client->on('connect',function($cli){
             Log::write("==================sc while===================Server-client redis scan...==================sc while===================\n");
@@ -104,9 +107,11 @@ class TcpClient
 
         $this->client->on('close',function($cli){
             echo "Client Closed ...\n";
+            self::onWorkerStop();
         });
 
         $this->client->on("error", function($cli){
+            self::onWorkerStop();
             echo "Connect failed\n";
         });
     }
@@ -183,6 +188,46 @@ class TcpClient
             print_r($e->getMessage());
         }
         return $redis;
+    }
+
+    /**
+     * @param $server
+     * @param $workerId
+     * @throws \Exception
+     */
+    public function onWorkerStart($server, $workerId)
+    {
+        //parent::onWorkerStart($server, $workerId);
+        $common = Config::get('common_file');
+        if(!empty($common)){
+            require ROOTPATH.$common;
+        }
+        if (!$server->taskworker) {
+            //worker进程启动协程调度器
+            //work一启动加载连接池的链接、组件容器、路由
+            Db::getInstance()->initMysqlPool($workerId, Config::getField('database','master'));
+            Db::getInstance()->initRedisPool($workerId, Config::get('redis'));
+            Db::getInstance()->initSessionRedisPool($workerId, Config::get('session'));
+            App::init(Factory::getInstance(\ZPHP\Core\DI::class));
+            Route::init();
+            Session::init();
+            $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
+            $this->dispatcher = Factory::getInstance(\ZPHP\Core\Dispatcher::class);
+            $this->requestDeal = Factory::getInstance(\ZPHP\Core\Request::class, $this->coroutineTask);
+        }
+    }
+
+
+    /**
+     * @param $server
+     * @param $workerId
+     */
+    public function onWorkerStop($server, $workerId){
+        if(!$server->taskworker) {
+            Db::getInstance()->freeMysqlPool();
+            Db::getInstance()->freeRedisPool();
+        }
+        parent::onWorkerStop($server, $workerId);
     }
 }
 
