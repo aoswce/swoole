@@ -4,11 +4,11 @@
 (
 cd /usr/local/yele-server/ &&
 
-/usr/bin/php server/server.php >> /usr/local/yele-server/git_crontab.log  &&
+/usr/bin/php server/server.php >> /usr/local/yele-server/log/server.log  &&
 
 sleep 1 &&
 
-(/usr/bin/php server/serverClient.php >> /usr/local/yele-server/git_crontab.log &) &&
+(/usr/bin/php server/serverClient.php >> /usr/local/yele-server/log/server.log &) &&
 
 echo `date` >> /usr/local/yele-server/git_crontab.log
 )
