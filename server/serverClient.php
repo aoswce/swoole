@@ -50,8 +50,9 @@ class TcpClient
                 . " time:".date('Y-m-d H:i:s')."  master");
 
             self::register();
-            sleep(2);
+            sleep(1);
             self::login();
+            sleep(1);
 
             //从Redis获取要发送的数据
             $redis = self::getRedis();
@@ -177,13 +178,17 @@ class TcpClient
 
     private function getRedis(){
         global $config;
-        try{
-            $redis = new Redis;
+        $redis = [];
 
-            $redis->connect(
-                $config['redis']['master']['host'],
-                $config['redis']['master']['port']
-            );
+        try{
+            for($i = 0; $i<10;$i++){
+                $redis[$i] = new Redis;
+
+                $redis[$i]->connect(
+                    $config['redis']['master']['host'],
+                    $config['redis']['master']['port']
+                );
+            }
         }catch (Exception $e){
             echo "==================Redis Connect Exception ===================\n";
             echo $e->getCode().":".$e->getMessage().$e->getTraceAsString()."\n";
