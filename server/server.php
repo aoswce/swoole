@@ -251,7 +251,7 @@ class Server{
      */
     function onManagerStart($serv){
         swoole_set_process_name('Yserver ' .
-            ' Server manager:' . $serv->manager_pid);
+            'Server manager:' . $serv->manager_pid);
     }
 
     function onWorkerstart($serv, $wid) {
