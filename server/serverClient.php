@@ -30,6 +30,7 @@ class TcpClient
 
 
         $this->client->on('connect',function($cli){
+            Log::write("==================sc while===================Server-client redis scan...==================sc while===================\n");
             global $config;
             echo "Server-Client:Start...\n";
             swoole_set_process_name('Yserver' . ' Client running ' .
