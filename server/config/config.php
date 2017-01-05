@@ -1,4 +1,6 @@
 <?php
+namespace com\yele\server\config;
+
 /**
  * Created by PhpStorm.
  * User: Administrator

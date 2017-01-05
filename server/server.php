@@ -1,13 +1,14 @@
 <?php
 namespace com\yele\server;
 
+
 define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
 #require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
 require ROOTPATH.'/vendor/autoload.php';
 
-
+global $config;
 define('proxy_enable',$config['proxy_enable']);
 define('DEBUG', true);
 
