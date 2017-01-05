@@ -10,7 +10,12 @@ define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
 
+require ROOTPATH.'/vendor/autoload.php';
+use ZPHP\ZPHP;
 
+define('DEBUG', true);
+
+use ZPHP\Core\Log;
 
 class TcpClient
 {
@@ -57,7 +62,7 @@ class TcpClient
                     }
                 }
                 }catch (Exception $e){
-                    \ZPHP\Core\Log::write("Server-client Error: ");
+                    Log::write("Server-client Error: ");
                     continue;
                 }
             }
