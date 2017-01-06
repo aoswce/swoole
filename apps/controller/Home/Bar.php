@@ -64,7 +64,7 @@ class Bar extends Controller{
         if(!empty($rawData)){
             $url = $Uri['server'].$urls['winesave'];
             $re = httpPost($url,$rawData);
-            Log::write($re);
+            Log::write("httpPost:".$re);
             if($re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
@@ -119,7 +119,7 @@ class Bar extends Controller{
      * {
         "phone":"123456789",
         "code":"code",
-        "status::1,
+        "status":1,
         "msg":"错误信息"
        }
      * @return array
@@ -154,7 +154,7 @@ class Bar extends Controller{
      * {
         "phone":"123456789",
         "code":"code",
-        "status::1,
+        "status":1,
         "msg":"错误信息"
       }
      * @return array
@@ -190,7 +190,7 @@ class Bar extends Controller{
      * {
         "phone":"123456789",
         "code":"code",
-        "status::1,
+        "status":1,
         "msg":"错误信息"
       }
      * @return array
@@ -203,10 +203,11 @@ class Bar extends Controller{
 
         log::write("$rawData");
         if(!empty($rawData)){
-            $msg = json_decode($rawData);
+            $msg = (array)json_decode($rawData);
+            var_dump($msg);
             $re = yield Db::table('messages')->add($msg);
             Log::write($re);
-            if($re){
+            if(!$re){
                 $this->result['errCode'] = 2 ;
                 $this->result['msg'] = 'Post Error:post data to server error!';
             }else{

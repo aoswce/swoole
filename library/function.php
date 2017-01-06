@@ -30,6 +30,10 @@ function httpGet($url,$data){
 }
 
 function httpPost($url,$data){
+    Log::write("postUrl:".$url);
+    Log::write("====================postData:======================");
+    Log::write($data);
+    Log::write("====================postData:======================");
     $curlObj = curl_init();                             //初始化curl，
     curl_setopt($curlObj, CURLOPT_URL, $url);           //设置网址
     curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);   //将curl_exec的结果返回
