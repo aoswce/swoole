@@ -121,7 +121,7 @@ class TcpClient
         while(true){
             echo "you got your data times => ". $i;
             sleep(1);
-            $sends = $redis->keys('S:*:*:*');
+            $sends = $redis->keys('S:*:*');
             //如果有数据将数据发送动作发送给服务端
             if(count($sends)){
                 $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
