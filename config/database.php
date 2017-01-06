@@ -3,10 +3,10 @@
     return [
             'database'=>[
                     'master' => [
-                        'host' => '127.0.0.1',
-                        'user' => 'test',
-                        'password' => 'Test@123',
-                        'database' => 'test',
+                        'host' => 'rds6nim7frjqb7j.mysql.rds.aliyuncs.com',
+                        'user' => 'yele_proxy',
+                        'password' => 'Th8YxzKGGCd1',
+                        'database' => 'yele_proxy',
                         'asyn_max_count' => 5,
                         'start_count' => 0,
                     ],

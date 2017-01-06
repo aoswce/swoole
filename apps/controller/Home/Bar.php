@@ -152,14 +152,14 @@ class Bar extends Controller{
      * 用于B端将商品信息同步至P端，保存至MySQL。
      * DATA：
      * {
-    "phone":"123456789",
-    "code":"code",
-    "status::1,
-    "msg":"错误信息"
-    }
+        "phone":"123456789",
+        "code":"code",
+        "status::1,
+        "msg":"错误信息"
+      }
      * @return array
      */
-    public function savengoods(){
+    public function savegoods(){
         Log::write("Start GoodsSave...");
 
         $Uri = Config::get('uri');
@@ -170,6 +170,41 @@ class Bar extends Controller{
         if(!empty($rawData)){
             $goods = asintogoods($rawData);
             $re = yield Db::table('goods')->save($goods);
+            Log::write($re);
+            if($re){
+                $this->result['errCode'] = 2 ;
+                $this->result['msg'] = 'Post Error:post data to server error!';
+            }else{
+                $this->result['errCode'] = 0;
+                $this->result['msg'] ='Send data successed!';
+            }
+        }
+        return $this->result;
+    }
+
+    /**
+     * B===>> P ===>>MySQL
+     * url:http://server.yeleonline.com:9988/bar/savegoods
+     * 用于B端将商品信息同步至P端，保存至MySQL。
+     * DATA：
+     * {
+        "phone":"123456789",
+        "code":"code",
+        "status::1,
+        "msg":"错误信息"
+      }
+     * @return array
+     */
+    public function savemsg(){
+        Log::write("Start GoodsSave...");
+
+
+        $rawData = $this->request->rawContent();
+
+        log::write("$rawData");
+        if(!empty($rawData)){
+            $msg = json_decode($rawData);
+            $re = yield Db::table('messages')->save($msg);
             Log::write($re);
             if($re){
                 $this->result['errCode'] = 2 ;
