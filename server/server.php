@@ -321,7 +321,7 @@ class Server{
      */
   function getRedis(){
       global $config;
-      $redis = new Swoole\Redis;
+      $redis = new \Redis;
       $redis->connect(
             $config['redis']['master']['host'],
             $config['redis']['master']['port']

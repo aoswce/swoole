@@ -177,7 +177,7 @@ class TcpClient
 
         try{
             for($i = 0; $i<100;$i++){
-                $redis[$i] = new Swoole\Redis;
+                $redis[$i] = new \Redis;
 
                 $redis[$i]->connect(
                     $config['redis']['master']['host'],

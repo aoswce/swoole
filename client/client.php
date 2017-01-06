@@ -52,9 +52,9 @@ class Client
             echo "you got your data:".$data;
             //收到消息数据，完成两个步骤：
             //1、完成数据存储至相应的Mysql数据表
-            //2、将通知发送至Redis队列
             self::savetomysql($data);
-            self::savetoredis($data);
+            //2、将通知发送至Redis队列
+            //self::savetoredis($key,$data);
             //3、消息确认
             self::dataok();
 
