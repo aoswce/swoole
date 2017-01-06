@@ -1,21 +1,17 @@
 <?php
-namespace com\yele\server;
-use ZPHP\Core\Db;
-use ZPHP\Core\Log;
-use ZPHP\Core\Config;
-use ZPHP\Core\Factory;
-use Redis;
-use Swoole;
-
+/**
+ * Created by PhpStorm.
+ * User: Avine
+ * Date: 2016/12/21
+ * Time: 16:10
+ */
 define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
 #require __DIR__.'/redis-async/src/Swoole/Async/RedisClient.php';
-require ROOTPATH.'/vendor/autoload.php';
 
 global $config;
 define('proxy_enable',$config['proxy_enable']);
-define('DEBUG', true);
 
 
 class Server{
@@ -341,7 +337,7 @@ class Server{
      */
   function getRedis(){
       global $config;
-      $redis = new Redis;
+      $redis = new Swoole\Redis;
       $redis->connect(
             $config['redis']['master']['host'],
             $config['redis']['master']['port']

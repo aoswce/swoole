@@ -1,11 +1,4 @@
 <?php
-namespace com\yele\server;
-
-use ZPHP\Core\Log;
-use ZPHP\Core\Db;
-use ZPHP\Core\Config;
-use Redis;
-use Swoole;
 /**
  * Created by PhpStorm.
  * User: Avine
@@ -16,11 +9,6 @@ use Swoole;
 define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/server/config/config.php';
 require_once ROOTPATH . '/server/function/function.php';
-
-require ROOTPATH.'/vendor/autoload.php';
-
-
-define('DEBUG', true);
 
 
 
@@ -188,7 +176,7 @@ class TcpClient
 
         try{
             for($i = 0; $i<100;$i++){
-                $redis[$i] = new Redis;
+                $redis[$i] = new Swoole\Redis;
 
                 $redis[$i]->connect(
                     $config['redis']['master']['host'],
