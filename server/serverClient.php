@@ -27,8 +27,8 @@ class TcpClient
 
 
         $this->client->on('connect',function($cli){
-            self::onWorkerStart($cli,99999);
-            Log::write("==================sc while===================Server-client redis scan...==================sc while===================\n");
+            var_dump($cli);
+
             global $config;
             echo "Server-Client:Start...\n";
             swoole_set_process_name('Yserver' . ' Client running ' .
@@ -55,7 +55,7 @@ class TcpClient
 
                 $i++;
                 echo "==================sc while [{$i}]===================\n";
-                Log::write("Server-client redis scan...\n");
+
                 echo "==================sc while===================\n";
                 sleep(1);
 
@@ -77,7 +77,7 @@ class TcpClient
                     $num = count($sends);
                     if($num){
                         echo "==================count(\$sends)[{$num}]===================\n";
-                        Log::write("Server-client Send cmd: [sendClient]\n");
+
                         $data = array('fd'=>'B999999_12aew4qqwa23q','cmd'=>'sendClient','data'=>array('cmd'=>'login','user'=>'wvv','pass'=>'123456'));
                         $re = $this->client->send(json_encode($data));
                         if($re){continue;}else{//失败重发
@@ -86,7 +86,7 @@ class TcpClient
                     }
                 }catch (Exception $e){
                     echo "==================Redis Exception ===================\n";
-                    Log::write("Server-client Error: ");
+
                     var_dump($e);
                     echo "【".$e->getCode().":".$e->getMessage()."】\n";
                     echo "==================Redis Exception ===================\n";
@@ -97,18 +97,19 @@ class TcpClient
 
         $this->client->on('receive',function($cli,$data){
             echo "you got your data:".$data."\n";
+            var_dump($cli);
         });
 
         //$this->client->on('task',array($this,'onTask'));
 
         $this->client->on('close',function($cli){
             echo "Client Closed ...\n";
-            self::onWorkerStop();
+            var_dump($cli);
         });
 
         $this->client->on("error", function($cli){
-            self::onWorkerStop();
             echo "Connect failed\n";
+            var_dump($cli);
         });
     }
 
@@ -201,36 +202,6 @@ class TcpClient
         }
     }
 
-    /**
-     * @param $server
-     * @param $workerId
-     * @throws \Exception
-     */
-    public function onWorkerStart($cli, $workerId)
-    {
-        //parent::onWorkerStart($server, $workerId);
-        $common = Config::get('common_file');
-        if(!empty($common)){
-            require ROOTPATH.$common;
-        }
-        if (!$cli->isConnected()) {
-            //worker进程启动协程调度器
-            //work一启动加载连接池的链接、组件容器、路由
-            Db::getInstance()->initMysqlPool($workerId, Config::getField('database','master'));
-        }
-    }
-
-
-    /**
-     * @param $server
-     * @param $workerId
-     */
-    public function onWorkerStop($server, $workerId){
-        if(!$server->taskworker) {
-            Db::getInstance()->freeMysqlPool();
-        }
-        //parent::onWorkerStop($server, $workerId);
-    }
 }
 
 $client = new TcpClient();
