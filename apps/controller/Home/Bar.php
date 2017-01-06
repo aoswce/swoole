@@ -184,7 +184,7 @@ class Bar extends Controller{
 
     /**
      * B===>> P ===>>MySQL
-     * url:http://server.yeleonline.com:9988/bar/savegoods
+     * url:http://server.yeleonline.com:9988/bar/savemsg
      * 用于B端将商品信息同步至P端，保存至MySQL。
      * DATA：
      * {
@@ -204,7 +204,7 @@ class Bar extends Controller{
         log::write("$rawData");
         if(!empty($rawData)){
             $msg = json_decode($rawData);
-            $re = yield Db::table('messages')->save($msg);
+            $re = yield Db::table('messages')->add($msg);
             Log::write($re);
             if($re){
                 $this->result['errCode'] = 2 ;
