@@ -13,7 +13,6 @@ require_once ROOTPATH . '/server/function/function.php';
 global $config;
 define('proxy_enable',$config['proxy_enable']);
 
-use ZPHP\Core\Config;
 
 class Server{
     private $serv;
@@ -289,18 +288,6 @@ class Server{
         }else{
             swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
         }
-
-        //parent::onWorkerStart($server, $workerId);
-        $common = Config::get('common_file');
-        if(!empty($common)){
-            require ROOTPATH.$common;
-        }
-        if (!$serv->taskworker) {
-            //worker进程启动协程调度器
-            //work一启动加载连接池的链接、组件容器、路由
-            Db::getInstance()->initMysqlPool($wid, Config::getField('database','master'));
-
-        }
     }
 
     /**
@@ -308,10 +295,7 @@ class Server{
      * @param $workerId
      */
     function onWorkerstop($server, $workerId){
-        if(!$server->taskworker) {
-            Db::getInstance()->freeMysqlPool();
-        }
-        parent::onWorkerStop($server, $workerId);
+
     }
 
 
