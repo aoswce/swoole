@@ -150,7 +150,9 @@ class Server{
 
 
         case 'login':
-          $logKey = $fdPre."log_".$data['fds']."_";
+          $logKey = $fdPre."  .
+           
+           asdf_".$data['fds']."_";
           if(empty($redis->get($logKey))){
             $re = $redis -> set($logKey,json_encode(array('fd'=>$data['fds'],'time'=>date('Y-m-d H:i:s',strtotime('now')),'ip'=>'')));
             if($re){
