@@ -4,7 +4,7 @@ use \ZPHP\Socket\Adapter\Swoole;
 
 return array(
     'server_mode' => 'Socket',
-    'project_name' => 'yele',
+    'project_name' => 'yeleApi',
     'app_path' => 'apps',
     'ctrl_path' => 'controller',
     'common_file'  => '/library/function.php',
