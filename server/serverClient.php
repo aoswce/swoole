@@ -79,7 +79,7 @@ class TcpClient
                         //$redis->close();
                     }else{
                         echo "==================Redis else ===================\n";
-                        $redis->close();
+                        //$redis->close();
                         unset($redis);
                         continue;
                     }

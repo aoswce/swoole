@@ -12,6 +12,7 @@ namespace controller\Home;
 use ZPHP\Core\Config;
 use ZPHP\Controller\Controller;
 use ZPHP\Core\Log;
+use ZPHP\Core\Db;
 
 /**
  * Class Bar
@@ -143,5 +144,47 @@ class Bar extends Controller{
             }
         }
         return $this->result;
+    }
+
+    /**
+     * B===>> P ===>>MySQL
+     * url:http://server.yeleonline.com:9988/bar/savegoods
+     * 用于B端将商品信息同步至P端，保存至MySQL。
+     * DATA：
+     * {
+    "phone":"123456789",
+    "code":"code",
+    "status::1,
+    "msg":"错误信息"
+    }
+     * @return array
+     */
+    public function savengoods(){
+        Log::write("Start GoodsSave...");
+
+        $Uri = Config::get('uri');
+        $urls = $Uri['urls'];
+        $rawData = $this->request->rawContent();
+
+        log::write("$rawData");
+        if(!empty($rawData)){
+            $goods = asintogoods($rawData);
+            $re = yield Db::table('goods')->save($goods);
+            Log::write($re);
+            if($re){
+                $this->result['errCode'] = 2 ;
+                $this->result['msg'] = 'Post Error:post data to server error!';
+            }else{
+                $this->result['errCode'] = 0;
+                $this->result['msg'] ='Send data successed!';
+            }
+        }
+        return $this->result;
+    }
+
+    public function asintogoods($data)
+    {
+        //TODO
+        return $data;
     }
 }

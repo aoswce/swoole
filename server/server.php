@@ -180,7 +180,7 @@ class Server{
             echo  "===================\n";
             var_dump($data);
             echo  "===================\n";
-            $re = $redis->keys('S:*:*:*');
+            $re = $redis->keys('S:*:*');
             var_dump($re);
             foreach ($re as $key => $value) {
               echo "[$key]=>[$value]";
