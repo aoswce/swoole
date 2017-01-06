@@ -73,7 +73,7 @@ class TcpClient
 
                 try{
                     //var_dump($redis);
-                    if(is_a($redis) && $redis->ping()=='PONG'){
+                    if(is_object($redis) && $redis->ping()=='PONG'){
                         echo "==================Redis if ===================\n";
                         $sends = $redis->keys('S:*:*');
                         //$redis->close();
