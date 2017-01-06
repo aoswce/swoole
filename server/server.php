@@ -285,6 +285,28 @@ class Server{
         }else{
             swoole_set_process_name("Yserver". " Server worker  num: {$serv->worker_id} - {$config['runparams']['worker_num']}. pid " . $serv->worker_pid);
         }
+
+        $workers = [];
+        $worker_num = 3;//创建的进程数
+
+        for($i=0;$i<$worker_num ; $i++){
+            $process = new swoole_process('process');
+            $pid = $process->start();
+            $workers[$pid] = $process;
+        }
+
+        foreach($workers as $process){
+            //子进程也会包含此事件
+            swoole_event_add($process->pipe, function ($pipe) use($process){
+                $data = $process->read();
+                echo "RECV: [".$pipe."]" . $data.PHP_EOL;
+            });
+        }
+    }
+
+    function process(swoole_process $process){// 第一个处理
+        $process->write($process->pid);
+        echo $process->pid,"\t",$process->callback .PHP_EOL;
     }
 
     /**
