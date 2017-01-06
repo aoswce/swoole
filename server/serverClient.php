@@ -76,6 +76,8 @@ class TcpClient
                     if(is_object($redis) && $redis->ping()=='PONG'){
                         echo "==================Redis if ===================\n";
                         $sends = $redis->keys('S:*:*');
+                        var_dump($sends);
+                        unset($redis);
                         //$redis->close();
                     }else{
                         echo "==================Redis else ===================\n";
@@ -181,10 +183,11 @@ class TcpClient
 
     private function getRedis(){
         global $config;
+        ini_set('default_socket_timeout', -1);
         $redis = [];
 
         try{
-            for($i = 0; $i<10;$i++){
+            for($i = 0; $i<100;$i++){
                 $redis[$i] = new Redis;
 
                 $redis[$i]->connect(
@@ -198,7 +201,16 @@ class TcpClient
             echo "==================Redis Connect Exception ===================\n";
             print_r($e->getMessage());
         }
-        return $redis[rand(0,9)];
+        $re = $redis[rand(0,99)];
+        if(!empty($re) && is_object($re)){
+            if($re->ping()=='PONG'){
+                return $re;
+            }else{
+                return $this->getRedis();
+            }
+        }else{
+            return $this->getRedis();
+        }
     }
 
     /**
