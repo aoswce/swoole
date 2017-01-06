@@ -13,6 +13,7 @@ require_once ROOTPATH . '/server/function/function.php';
 global $config;
 define('proxy_enable',$config['proxy_enable']);
 
+use ZPHP\Core\Config;
 
 class Server{
     private $serv;
@@ -298,8 +299,6 @@ class Server{
             //worker进程启动协程调度器
             //work一启动加载连接池的链接、组件容器、路由
             Db::getInstance()->initMysqlPool($wid, Config::getField('database','master'));
-
-            $this->coroutineTask = Factory::getInstance(\ZPHP\Coroutine\Base\CoroutineTask::class);
 
         }
     }
