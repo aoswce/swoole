@@ -54,15 +54,17 @@ class TcpClient
             self::login();
             sleep(1);
 
-            //从Redis获取要发送的数据
-            $redis = self::getRedis();
-            echo "==================Redis>> ===================\n";
-            var_dump($redis);
-            echo "==================Redis>> ===================\n";
+
 
             //循环检测队列，将通知触发至服务
             $i=0;
             while(true){
+                //从Redis获取要发送的数据
+                $redis = self::getRedis();
+                echo "==================Redis>> ===================\n";
+                var_dump($redis);
+                echo "==================Redis>> ===================\n";
+
                 $i++;
                 echo "==================sc while [{$i}]===================\n";
                 Log::write("Server-client redis scan...\n");
@@ -71,13 +73,14 @@ class TcpClient
 
                 try{
                     //var_dump($redis);
-                    if($redis){
+                    if(is_a($redis) && $redis->ping()=='PONG'){
                         echo "==================Redis if ===================\n";
                         $sends = $redis->keys('S:*:*');
                         //$redis->close();
                     }else{
                         echo "==================Redis else ===================\n";
                         $redis->close();
+                        unset($redis);
                         continue;
                     }
                     //如果有数据将数据发送动作发送给服务端
@@ -195,7 +198,7 @@ class TcpClient
             echo "==================Redis Connect Exception ===================\n";
             print_r($e->getMessage());
         }
-        return $redis;
+        return $redis[rand(0,10)];
     }
 
     /**
