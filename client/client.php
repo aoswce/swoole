@@ -9,8 +9,6 @@ define("ROOTPATH",dirname(dirname(__FILE__)));
 require_once ROOTPATH . '/client/config/config.php';
 
 
-use ZPHP\Core\Db;
-
 
 class Client
 {
@@ -115,11 +113,11 @@ class Client
 
 
     function savetomysql($data){
-        $re = yield Db::table('')->query($data);
+
     }
 
     function savetoredis($k,$d){
-        $re = yield Db::redis()->cache($k,$d);
+
     }
 }
 
