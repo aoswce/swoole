@@ -198,7 +198,7 @@ class TcpClient
             echo "==================Redis Connect Exception ===================\n";
             print_r($e->getMessage());
         }
-        return $redis[rand(0,10)];
+        return $redis[rand(0,9)];
     }
 
     /**
